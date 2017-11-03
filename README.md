@@ -4,4 +4,4 @@
 * Ayush Malik - 1610110084
 * Hariharan - 1610110147
 * Jaivrat Saroha - 1610110159
-* Sooryanarayan - 1610110374
+* Sooryanarayanan - 1610110374
