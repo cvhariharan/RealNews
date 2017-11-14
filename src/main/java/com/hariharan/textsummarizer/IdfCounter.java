@@ -28,7 +28,7 @@ public class IdfCounter {
     public String text; //Holds the normalize text
     private String[] allWords;
     private HashMap<String, Integer> wordMap; //Stores the frequency of each word
-    private HashMap<String, Integer> sentences; //Holds all the sentences
+    private HashMap<String, Double> sentences; //Holds all the sentences
     public void setText(String text)
     {
         this.text = normalize(text);
@@ -36,7 +36,7 @@ public class IdfCounter {
         for(String s: text.split("\\.")) //Escape for literal dot.
         {
             //System.out.println(s);
-            this.sentences.put(normalize(s),1); //Initialize the score of each sentence as 1
+            this.sentences.put(normalize(s),1.0); //Initialize the score of each sentence as 1
         }
         this.allWords = this.text.split(" ");
         this.wordMap = count(allWords);
@@ -45,7 +45,7 @@ public class IdfCounter {
     
     public String normalize(String text)
     {
-        String normalized = text.replaceAll("[^a-zA-Z]", " ").replaceAll(" +", " ").toLowerCase();
+        String normalized = text.replaceAll("[^a-zA-Z]", " ").replaceAll(" +", " ").toLowerCase().trim();
         return normalized;
     }
     
@@ -81,13 +81,15 @@ public class IdfCounter {
     public double computeCosine(String input)
     {
         //Finds the cosine between the input and all the other sentences in the document
+        input = normalize(input);
         HashSet<String> inputVector = (HashSet)vectorize(input);
         HashSet<String> sentenceVector = null;
         Set<String> allSentences = this.sentences.keySet();
         double cosineSum = 0; //Sum of cosines of the input with all sentences.
         for(String eachSentence: allSentences)
         {
-            //System.out.println(eachSentence);
+            if(!input.equals(eachSentence))
+            {
             double cosine = 0;
             int count = 0;
             sentenceVector = (HashSet)vectorize(eachSentence);
@@ -95,13 +97,22 @@ public class IdfCounter {
             sentenceVector.retainAll(inputVector);
             for(String t: sentenceVector)
             {
-                //System.out.println(t);
                 int freq = wordMap.get(t);
-                cosine += Math.log10(count/freq);
+                if(freq == 0)
+                    freq = 1;
+                cosine += Math.abs(Math.log10((double)count/(double)freq));
             }
             cosineSum += cosine;
+            
+        if(this.sentences.containsKey(input))
+        {
+            double score = this.sentences.get(input);
+            this.sentences.put(input, score+cosineSum);
         }
         return cosineSum;
+        }
+        }
+        return 0;
     }
     
     public Set<String> vectorize(String text)
@@ -113,10 +124,28 @@ public class IdfCounter {
         }
         return vector;
     }
+    
+    public void showSentences()
+    {
+        Set<String> keys = this.sentences.keySet();
+        Iterator i = keys.iterator();
+        while(i.hasNext())
+        {
+            String sentence = (String)i.next();
+            System.out.println(sentence+": "+this.sentences.get(sentence));
+        }
+    }
     public static void main(String[] args) throws IOException
     {
        IdfCounter counter = new IdfCounter();
-       counter.setText("This is a foo bar sentence. This sentence is similar to a foo bar sentence.");
-       System.out.println(counter.computeCosine(""));
+       
+       String news = "The Food and Drug Administration has approved the first digital pill for the US which tracks if patients have taken their medication. The pill called Abilify MyCite, is fitted with a tiny ingestible sensor that communicates with a patch worn by the patient — the patch then transmits medication data to a smartphone app which the patient can voluntarily upload to a database for their doctor and other authorized persons to see. Abilify is a drug that treats schizophrenia, bipolar disorder, and is an add-on treatment for depression.\n" +
+"\n" +
+"The Abilify MyCite features a sensor the size of a grain of sand made of silicon, copper, and magnesium. An electrical signal is activated when the sensor comes into contact with stomach acid — the sensor then passes through the body naturally. A patch the patient wears on their left rib cage receives the signal several minutes after the pill is ingested. The patch then sends data like the time the pill was taken and the dosage to a smartphone app over Bluetooth. The patch also records activity levels, sleeping patterns, steps taken, activity, and heart rate, and must be replaced every seven days. The patient’s doctor and up to four other people chosen by the patient, including family members, can access the information. The patient can revoke access at any time."
+               + "";
+       counter.setText(news);
+       for(String s: news.split("\\."))
+            System.out.println(s+": "+counter.computeCosine(s));
+       //counter.showSentences();
     }
 }
