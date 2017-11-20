@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.hariharan.textsummarizer;
+import fakenews.Detector;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,6 +20,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.lang.*;
+import java.util.Map;
+import java.util.TreeMap;
 /**
  *
  * @author thero
@@ -109,9 +112,11 @@ public class IdfCounter {
             double score = this.sentences.get(input);
             this.sentences.put(input, score+cosineSum);
         }
+        
         return cosineSum;
         }
         }
+        
         return 0;
     }
     
@@ -125,6 +130,17 @@ public class IdfCounter {
         return vector;
     }
     
+    public Map<String, Double> sortByValue()
+    {
+        ValueComparator comp = new ValueComparator(this.sentences);
+        Map<String, Double> sortedMap = new TreeMap(comp);
+        sortedMap.putAll(this.sentences);
+        Set<String> keys = sortedMap.keySet();
+        System.out.println("SORTED...");
+        for(String s: keys)
+            System.out.println(keys);
+        return sortedMap;
+    }
     public void showSentences()
     {
         Set<String> keys = this.sentences.keySet();
@@ -135,17 +151,17 @@ public class IdfCounter {
             System.out.println(sentence+": "+this.sentences.get(sentence));
         }
     }
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws IOException, Exception
     {
-       IdfCounter counter = new IdfCounter();
+       /*IdfCounter counter = new IdfCounter();
        
-       String news = "The Food and Drug Administration has approved the first digital pill for the US which tracks if patients have taken their medication. The pill called Abilify MyCite, is fitted with a tiny ingestible sensor that communicates with a patch worn by the patient — the patch then transmits medication data to a smartphone app which the patient can voluntarily upload to a database for their doctor and other authorized persons to see. Abilify is a drug that treats schizophrenia, bipolar disorder, and is an add-on treatment for depression.\n" +
-"\n" +
-"The Abilify MyCite features a sensor the size of a grain of sand made of silicon, copper, and magnesium. An electrical signal is activated when the sensor comes into contact with stomach acid — the sensor then passes through the body naturally. A patch the patient wears on their left rib cage receives the signal several minutes after the pill is ingested. The patch then sends data like the time the pill was taken and the dosage to a smartphone app over Bluetooth. The patch also records activity levels, sleeping patterns, steps taken, activity, and heart rate, and must be replaced every seven days. The patient’s doctor and up to four other people chosen by the patient, including family members, can access the information. The patient can revoke access at any time."
+       String news = "One thing is assured any time the pope \\u2013 any pope \\u2013 talks about a \\u201ccontroversial\\u201d topic. People will listen. Even people who have eschewed the Catholic Church and all she stands for if for no other reason to ridicule and lecture Catholics. Well, Pope Francis made a change, again, in the absolution procedures for the sin of procuring, assisting in or causing an abortion, and all hell has broken loose. Unlike earlier in the year when a procedural convenience was made permanent, this change actually is a change.\\n\\nAllow me to explain.\\n\\nIn the full list of sins for Catholics, abortion is one of a handful that are so heinous, they are in a category that automatically incurs what is called latae sententiae excommunication. That means that \\u201cby the act\\u201d the human puts himself or herself OUTSIDE of the Christian Community. This is not a formal bull of excommunication that is posted for heresy (teaching or espousing that which is against the Church in one way or another), but a very personal sort of separation. However, in order to have the excommunication lifted \\u2013 this is a spiritual remedy, not a punishment \\u2013 which would allow for absolution (it is not granted if one is excommunicated), there is some administrative paperwork that needs to happen.\\n\\nEarlier in his pontificate, Pope Francis officially transferred the paperwork procedure to the parishes for abortion, rather than sending it through the bishops\\u2019 offices, a practice that had been in place in the United States and other western nations infested with modernism for decades. It just made things smoother. With Monday\\u2019s move, Canon Law actually will have to be changed as the formal procedure of lifting the excommunication has been dropped.\\n\\n\\u201cI wish to restate as firmly as I can that abortion is a grave sin, since it puts an end to an innocent life,\\u201d the pope wrote. \\u201cIn the same way, however, I can and must state that there is no sin that God\\u2019s mercy cannot reach and wipe away when it finds a repentant heart seeking to be reconciled with the Father.\\u201d Speaking to reporters during a Vatican news conference Nov. 21, Archbishop Rino Fisichella said procuring an abortion still results in automatic excommunication the very moment the procedure is carried out. Sacramental absolution, therefore, is not just forgiving the sin of abortion, but also means \\u201cthe excommunication is removed,\\u201d he said. Now that all priests have been given the faculty to lift the excommunication and grant absolution, the Code of Canon Law will have to be updated, said the archbishop, who is president of the Pontifical Council for Promoting New Evangelization, the office that organized events for the Year of Mercy.\\n\\nPope Francis, truly, has picked up the baton of a number of late 19th century and 20th century figures in Catholicism when it comes to his message on God\\u2019s mercy. The main proponent of the message was Pope Saint John Paul II, along with a Polish nun known to him during his life who was canonized during his pontificate. Her name is St. Faustina, the Divine Mercy image to the left is taken from an entry in her papers, and her diary speaks of Divine Mercy in terms many never considered before. (It\\u2019s a tough, but good read.) By declaring the just completed Year of Mercy, Pope Francis reminds the flock that returning to God is always possible, yes, even for those who are involved with abortion. The Church is a hospital for sinners, not an exclusive club.\\n\\nIn Catholicism, though, there is a catch to receiving absolution no matter what your sins. Confession must be\\n\\nmade, and the Penance (the real name of the Sacrament) must be carried out with a contrite heart. We are supposed to be sorry for our sins. That\\u2019s something a lot of us need to work on.\\n\\nComments"
                + "";
        counter.setText(news);
        for(String s: news.split("\\."))
             System.out.println(s+": "+counter.computeCosine(s));
-       //counter.showSentences();
+       counter.sortByValue();
+       //counter.showSentences();*/
+        Detector d = new Detector();
     }
 }
