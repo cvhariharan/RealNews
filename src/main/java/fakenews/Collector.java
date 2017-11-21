@@ -17,11 +17,12 @@ import org.jsoup.select.Elements;
 public class Collector {
     
     private ArrayList<String> urls = new ArrayList<String>();
-    Collector() throws IOException
+    public Collector() throws IOException
     {
-        Document doc = Jsoup.connect("http://teekhimirchi.in/world-en/").get(); //Satire news site. Change the last part of url to scrape other pages
-        Elements newsLinks = doc.getElementsByClass("entry-title mh-posts-grid-title"); //Change the class ID for each website
-        for(Element link: newsLinks)
+        Document doc = Jsoup.connect("https://timesofindia.indiatimes.com/india").get(); //Change the last part of url to scrape other pages
+        Elements newsLinks = doc.select("#c_wdt_list_1 > ul.list5.clearfix"); //Change the class ID for each website
+        Elements li = newsLinks.select("li");
+        for(Element link: li)
         {
             Element t = link.select("a").first();
             System.out.println(t.attr("href"));
@@ -31,6 +32,6 @@ public class Collector {
     }
     public static void main(String[] args) throws IOException
     {
-        Collector c = new Collector();
+        
     }
 }

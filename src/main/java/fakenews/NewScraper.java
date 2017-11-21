@@ -27,15 +27,17 @@ public class NewScraper {
         for(String url: urls)
         {
             System.out.println(url);
+            url = "https://timesofindia.indiatimes.com"+url;
             Document doc = Jsoup.connect(url).get();
-            articleTxt = new FileWriter(doc.title().replaceAll("[^a-zA-Z0-9]", "")+".txt");
+            articleTxt = new FileWriter("timesofindia/"+doc.title().replaceAll("[^\\w]", " ")+".txt");
             br = new BufferedWriter(articleTxt);
-            Elements article = doc.getElementsByClass("entry-content clearfix").select("p");
-            String content = "";
-            for(Element para: article)
+            Elements article = doc.getElementsByClass("article_content clearfix");
+            String content = article.text();
+            /*for(Element para: article)
             {
                 content += para.text();
-            }
+            }*/
+            System.out.println(content);
             br.write(content);
             br.close();
         }

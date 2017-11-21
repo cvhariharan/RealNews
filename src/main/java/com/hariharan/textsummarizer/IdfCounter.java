@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.hariharan.textsummarizer;
+import fakenews.Collector;
 import fakenews.Detector;
 import java.io.BufferedReader;
 import java.io.File;
@@ -172,5 +173,6 @@ public class IdfCounter {
 "The company also introduced HP Headset 800 with 53 mm driver and it has universal compatibility with 3.5mm-to-single 4 pole adapters.\n" +
 "Talking about the prices, the HP Omen 15 and Omen 17 comes with a starting price tag of Rs 80,990 and 150,990. While, the Omen Mouse 600 and Omen 800 Headset are priced at Rs 4,999 and Rs 6,999 respectively."));
         System.out.println(d.detect());
+        Collector col = new Collector();
     }
 }
