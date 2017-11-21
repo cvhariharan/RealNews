@@ -37,6 +37,7 @@ public class NewScraper {
                 content += para.text();
             }
             br.write(content);
+            br.close();
         }
     }
 }

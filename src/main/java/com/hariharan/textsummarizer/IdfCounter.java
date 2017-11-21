@@ -162,6 +162,15 @@ public class IdfCounter {
             System.out.println(s+": "+counter.computeCosine(s));
        counter.sortByValue();
        //counter.showSentences();*/
-        Detector d = new Detector();
+        IdfCounter c = new IdfCounter();
+        Detector d = new Detector(c.normalize("EW DELHI: HP has expanded its gaming laptop product portfolio with the launch of Omen 15 and Omen 17. The company claims that the new devices are designed for e-sports athletes and competitive gamers.\n" +
+"The laptops come with 10 Series GTX graphics from Nvidia and high-resolution displays with optional G-Sync technology for fast refresh rates. The HP Omen 15 comprises of the CE070TX, CE071TX, CE072TX, CE073TX, and CE074TX models. The laptop runs Windows 10 operating system and is powered by seventh-generation Intel Core i5 processor. It offers 8GB of DDR4 RAM and 1TB Serial ATA HDD with Nvidia GeForce GTX 1050.\n" +
+"The high-end version of the series is powered by seventh-generation Intel Core i7 processor paired with 16GB of RAM and 1TB HDD and the same Nvidia GeForce GTX 1060 graphics. The device sports a 15.6-inch LED display with 1920x1080 pixel resolution.\n" +
+"On the other hand, the company has introduced two models under the Omen 17 series -- AN009TX and AN010 TX. The devices boast of a 17.3-inch LED backlit display with full HD resolution. The laptops are powered by seventh-generation Intel Core i7 coupled with 16GB of DDR4 RAM and 1TB of Serial ATA HDD with Nvidia GeForce GTX 1070 graphics.\n" +
+"Both the gaming laptops sports red backlit keyboard with numeric keypad and multi-touch gesture support on the trackpad. The devices come equipped with Bang & Olufsen audio for an improved audio experience during the gaming sessions.\n" +
+"Along with the gaming notebooks, the company has also launched Omen by HP Mouse 600 which offers an ergonomic right hand design and rubber grips for added control and comfort. The device offers full range of DPI levels from 800 -12, 000 and a new optical sensor designed for eSports.\n" +
+"The company also introduced HP Headset 800 with 53 mm driver and it has universal compatibility with 3.5mm-to-single 4 pole adapters.\n" +
+"Talking about the prices, the HP Omen 15 and Omen 17 comes with a starting price tag of Rs 80,990 and 150,990. While, the Omen Mouse 600 and Omen 800 Headset are priced at Rs 4,999 and Rs 6,999 respectively."));
+        System.out.println(d.detect());
     }
 }

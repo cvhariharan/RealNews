@@ -8,7 +8,6 @@ import weka.core.Instances;
 import java.io.*;
 import weka.classifiers.functions.SGDText;
 import weka.core.Attribute;
-import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.converters.ConverterUtils.DataSource;
 /**
@@ -17,19 +16,34 @@ import weka.core.converters.ConverterUtils.DataSource;
  */
 public class Detector {
   
-    public Detector() throws Exception
+    public Detector(String news) throws Exception
     {
-        DataSource source = new DataSource("TestDataset.arff");
+        String toWrite = "@relation 'D__Study Materials_Research Papers_manually_Test Dataset'\n" +
+                        "\n" +
+                        "@attribute text string\n" +
+                        "@attribute @@class@@ {fake,real}\n" +
+                        "\n" +
+                        "@data\n" +
+                        "'";
+        FileWriter fw = new FileWriter("test.arff");
+        BufferedWriter bw = new BufferedWriter(fw);
+        news = news+"',?";
+        toWrite += news;
+        bw.write(toWrite);
+        bw.close();
+    }
+    
+    public String detect() throws Exception
+    {
+        DataSource source = new DataSource("test.arff");
         Instances data = source.getDataSet();
         if (data.classIndex() == -1)
             data.setClassIndex(data.numAttributes() - 1);
         SGDText sgd = new SGDText();
         sgd = (SGDText)weka.core.SerializationHelper.read("fake_news_detector_model2.model");
         
-        for(int i = 0; i < data.numInstances(); i++)
-        {
-            Instance newInst = data.instance(i);
-            System.out.println(sgd.classifyInstance(newInst));
-        }
+        Instance newInst = data.instance(0);
+        double realOrFake = sgd.classifyInstance(newInst);
+        return (realOrFake==0.0?"Fake":"Real");
     }
 }
