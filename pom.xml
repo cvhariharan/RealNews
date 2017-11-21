@@ -22,5 +22,10 @@
             <artifactId>jsoup</artifactId>
             <version>1.11.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.opennlp</groupId>
+            <artifactId>opennlp-tools</artifactId>
+            <version>1.8.3</version>
+        </dependency>
     </dependencies>
 </project>

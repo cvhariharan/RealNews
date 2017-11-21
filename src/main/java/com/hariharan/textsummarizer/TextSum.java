@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Collections;
 import java.util.HashSet;
@@ -23,6 +24,8 @@ import java.util.logging.Logger;
 import java.lang.*;
 import java.util.Map;
 import java.util.TreeMap;
+import opennlp.tools.sentdetect.SentenceDetectorME;
+import opennlp.tools.sentdetect.SentenceModel;
 /**
  *
  * @author thero
@@ -34,12 +37,32 @@ public class TextSum {
     private HashMap<String, Integer> wordMap; //Stores the frequency of each word
     private HashMap<String, Double> sentences; //Holds all the sentences
     public HashMap<String, String> sentenceMap; //Holds normalized sentences with original sentences.
+    private SentenceModel model = null;
+    private SentenceDetectorME sentBreak = null;
+    public TextSum() 
+    {
+        try
+        {
+            InputStream inputStream = new FileInputStream("en-sent.bin");
+            model = new SentenceModel(inputStream);
+            sentBreak = new SentenceDetectorME(model);
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        catch(IOException e)
+        {
+            System.out.println(e.getCause());
+        }
+        
+    }
     public void setText(String text)
     {
         this.text = normalize(text);
         this.sentences = new HashMap<>();
         this.sentenceMap = new HashMap<>();
-        for(String s: text.split("\\.")) //Escape for literal dot.
+        for(String s: sentBreak.sentDetect(text)) 
         {
             //System.out.println(s);
             this.sentences.put(normalize(s),1.0); //Initialize the score of each sentence as 1
