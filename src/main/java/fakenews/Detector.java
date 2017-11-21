@@ -40,7 +40,7 @@ public class Detector {
         if (data.classIndex() == -1)
             data.setClassIndex(data.numAttributes() - 1);
         SGDText sgd = new SGDText();
-        sgd = (SGDText)weka.core.SerializationHelper.read("fake_news_detector_model2.model");
+        sgd = (SGDText)weka.core.SerializationHelper.read("fake_news_detector_model3.model");
         
         Instance newInst = data.instance(0);
         double realOrFake = sgd.classifyInstance(newInst);

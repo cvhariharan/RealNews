@@ -29,7 +29,7 @@ public class NewScraper {
             System.out.println(url);
             url = "https://timesofindia.indiatimes.com"+url;
             Document doc = Jsoup.connect(url).get();
-            articleTxt = new FileWriter("timesofindia/"+doc.title().replaceAll("[^\\w]", " ")+".txt");
+            articleTxt = new FileWriter("timesofindia1/"+doc.title().replaceAll("[^\\w]", " ")+".txt");
             br = new BufferedWriter(articleTxt);
             Elements article = doc.getElementsByClass("article_content clearfix");
             String content = article.text();
