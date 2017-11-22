@@ -22,8 +22,11 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.lang.*;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
+import opennlp.tools.postag.POSModel;
+import opennlp.tools.postag.POSTaggerME;
 import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
 /**
@@ -34,18 +37,24 @@ public class TextSum {
     
     public String text; //Holds the normalize text
     private String[] allWords;
-    private HashMap<String, Integer> wordMap; //Stores the frequency of each word
+    private ArrayList<String> allNouns = new ArrayList<String>(); //Stores all tagged nouns
+    private TreeMap<String, Integer> wordMap; //Stores the frequency of each word
     private HashMap<String, Double> sentences; //Holds all the sentences
     public HashMap<String, String> sentenceMap; //Holds normalized sentences with original sentences.
     private SentenceModel model = null;
+    private POSModel pos = null;
     private static SentenceDetectorME sentBreak = null;
+    private static  POSTaggerME posTagger = null;
     public TextSum() 
     {
         try
         {
             InputStream inputStream = new FileInputStream("en-sent.bin");
+            InputStream inStream = new FileInputStream("en-pos-maxent.bin");
             model = new SentenceModel(inputStream);
+            pos = new POSModel(inStream);
             sentBreak = new SentenceDetectorME(model);
+            posTagger = new POSTaggerME(pos);
         }
         catch(FileNotFoundException e)
         {
@@ -69,7 +78,15 @@ public class TextSum {
             this.sentenceMap.put(normalize(s), s);
         }
         this.allWords = this.text.split(" ");
-        this.wordMap = count(allWords);
+        String[] nouns = posTagger.tag(this.text.split(" "));
+        for(int i = 0; i < nouns.length; i++)
+        {
+            if(nouns[i].equalsIgnoreCase("NN") || nouns[i].equalsIgnoreCase("NNP"))
+            {
+                this.allNouns.add(this.allWords[i]);
+            }
+        }
+        this.wordMap = count(this.allWords);
         
     }
     
@@ -84,15 +101,18 @@ public class TextSum {
         System.out.println(this.text);
     }
     
-    public HashMap<String, Integer> count(String[] words)
+    public TreeMap<String, Integer> count(String[] words)
     {
-        HashMap<String, Integer> tempMap = new HashMap<>();
+        TreeMap<String, Integer> tempMap = new TreeMap<>();
         for(String s: words)
         {
+            if(s != null)
+            {
             if(tempMap.get(s) == null)
                 tempMap.put(s, 1);
             else
                 tempMap.put(s, tempMap.get(s) + 1);
+            }
         }
         return tempMap;
     }
@@ -131,6 +151,11 @@ public class TextSum {
                 if(freq == 0)
                     freq = 1;
                 cosine += Math.abs(Math.log10((double)count/(double)freq));
+                if(this.allNouns.contains(t))
+                {
+                    cosine += freq; 
+                }
+                
             }
             cosineSum += cosine;
             
@@ -162,10 +187,9 @@ public class TextSum {
         ValueComparator comp = new ValueComparator(this.sentences);
         Map<String, Double> sortedMap = new TreeMap(comp);
         sortedMap.putAll(this.sentences);
-        Set<String> keys = sortedMap.keySet();
-        System.out.println("SORTED...");
+        System.out.println("SUMMARY...");
         int i = 0;
-        for(String s: keys)
+        /*for(String s: keys)
         {
             if(i!=count)
             {
@@ -174,6 +198,20 @@ public class TextSum {
             }
             else
                 break;
+        }*/
+        for(String s: this.sentenceMap.keySet())
+        {
+            if( i <= count)
+            {
+                if(sortedMap.containsKey(s))
+                {
+                   System.out.println(this.sentenceMap.get(s));
+                   i++;
+                }
+            }
+            else
+                break;
+            
         }
         return sortedMap;
     }
@@ -229,6 +267,6 @@ public class TextSum {
         {
             c.computeCosine(s);
         }
-        c.sortByValue(10);
+        c.sortByValue(5);
     }
 }
