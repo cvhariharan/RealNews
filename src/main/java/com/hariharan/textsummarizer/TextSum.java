@@ -29,6 +29,8 @@ import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
 import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
+import java.sql.*;
+import static jdbcdemo.Driver.*;
 /**
  *
  * @author thero
@@ -49,8 +51,8 @@ public class TextSum {
     {
         try
         {
-            InputStream inputStream = new FileInputStream("en-sent.bin");
-            InputStream inStream = new FileInputStream("en-pos-maxent.bin");
+            InputStream inputStream = new FileInputStream("model/en-sent.bin");
+            InputStream inStream = new FileInputStream("model/en-pos-maxent.bin");
             model = new SentenceModel(inputStream);
             pos = new POSModel(inStream);
             sentBreak = new SentenceDetectorME(model);
@@ -268,5 +270,6 @@ public class TextSum {
             c.computeCosine(s);
         }
         c.sortByValue(5);
+        
     }
 }

@@ -35,12 +35,12 @@ public class Detector {
     
     public String detect() throws Exception
     {
-        DataSource source = new DataSource("test.arff");
+        DataSource source = new DataSource("data/test.arff");
         Instances data = source.getDataSet();
         if (data.classIndex() == -1)
             data.setClassIndex(data.numAttributes() - 1);
         SGDText sgd = new SGDText();
-        sgd = (SGDText)weka.core.SerializationHelper.read("fake_news_detector_model3.model");
+        sgd = (SGDText)weka.core.SerializationHelper.read("model/fake_news_detector_model3.model");
         
         Instance newInst = data.instance(0);
         double realOrFake = sgd.classifyInstance(newInst);
