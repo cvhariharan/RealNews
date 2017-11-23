@@ -27,12 +27,12 @@ public class NewScraper {
         for(String url: urls)
         {
             
-            url = "https://www.cbsnews.com"+url;
+            //url = "https://www.cbsnews.com"+url;
             System.out.println(url);
             Document doc = Jsoup.connect(url).get();
-            articleTxt = new FileWriter("cbsnews/"+doc.title().replaceAll("[^\\w]", " ")+".txt");
+            articleTxt = new FileWriter("unreal/"+doc.title().replaceAll("[^\\w]", " ")+".txt");
             br = new BufferedWriter(articleTxt);
-            Elements article = doc.select("#article-entry > div > p");
+            Elements article = doc.select("div.entry-content > p");
             String content = "";
             for(Element para: article)
             {

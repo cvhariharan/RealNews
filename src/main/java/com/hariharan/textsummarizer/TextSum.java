@@ -238,18 +238,7 @@ public class TextSum {
             System.out.println(s+": "+counter.computeCosine(s));
        counter.sortByValue();
        //counter.showSentences();*/
-        /*String news = "Florida man Bruce John Homer, 61, was so driven to prove a busy intersection in his neighborhood unsafe that police said he purposely crashed his truck into an SUV to make the point.\n" +
-"\n" +
-"“People are always running the stop sign at this intersection and since you guys (law enforcement) don’t do anything about it, I did,” Homer told Lake County sheriff’s deputies after his Sunday smashup, according to Orlando station WFTV. No one was injured, according to WKMG.\n" +
-"\n" +
-"The SUV driver told deputies he was going through the intersection in Clermont when Homer’s truck pulled out in front of him, according to the Daily Commercial. The motorist said Horner then walked up to him and said: “You ran the stop sign and this is the 10th accident at this intersection and they won’t do anything until someone dies.”\n" +
-"\n" +
-"Deputies said Homer took credit for the crash ― and it may not have been his first. Homer told investigators he and his wife almost crashed at the same intersection a couple of weeks ago.\n" +
-"\n" +
-"“I ran some guy off the road after I saw him blow through the intersection,” investigators said Horner told them.\n" +
-"\n" +
-"\n" +
-"Homer was charged with two counts of aggravated battery with a deadly weapon and one count of reckless driving. He was released from the Lake County Jail after posting a $20,500 bond.";
+        String news = "";
         TextSum c = new TextSum();
         Detector d = new Detector(c.normalize(news));
         System.out.println(d.detect());
@@ -259,7 +248,7 @@ public class TextSum {
             c.computeCosine(s);
         }
         c.sortByValue(5);
-        */
-        Collector c = new Collector();
+        
+       
     }
 }
