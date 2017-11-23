@@ -32,17 +32,19 @@ public class XmlParse
             if(element.getTagName().equals("link"))
             {
                 htmlUrl = element.getTextContent();
+                System.out.println();
                 URL urlHtml = new URL(htmlUrl);
                 new SiteScraper().siteScrape(urlHtml);
             }
         }
-
-
     }
+
     public static void main(String args[]) throws IOException, ParserConfigurationException, SAXException
     {
-        URL url = new URL("https://www.anandtech.com/rss/");
+        URL url = new URL("https://kotaku.com/rss");
         new XmlParse().getURLfromXML(url);
+
+        //URL url = new URL("http://www.espn.com/blog/okc-thunder/post/_/id/2594/russell-westbrook-savors-sweet-win-after-string-of-losses-to-warriors");
         //new SiteScraper().siteScrape(url);
     }
 }

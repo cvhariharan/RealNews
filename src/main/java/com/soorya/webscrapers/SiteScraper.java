@@ -39,14 +39,21 @@ public class SiteScraper
         {
             String title = doc.title();
             String author = doc.select("a[class=b]").text();
-            //String timestamp = doc.selectFirst("em").text();
+            String timestamp = "";
+            try
+            {
+                timestamp = doc.selectFirst("em").text();
+            } catch (NullPointerException ne)
+            {
+                System.out.println("");
+            }
             String tags = doc.select(".hide_resp2 li a[href]").text();
             String content = doc.select(".articleContent").text();
 
             //News news = new News(timestamp,title,author,content,tags);
             System.out.println(title);
             System.out.println(author);
-            //System.out.println(timestamp);
+            System.out.println(timestamp);
             System.out.println(tags);
             System.out.println(content);
         }
@@ -116,20 +123,28 @@ public class SiteScraper
         else if(compare.matches("(.*)timesofindia(.*)"))
         {
             String title = doc.title();
-            String author = doc.select("a[rel=author]").text();
-            String timestamp = doc.selectFirst(".time_cptn span:contains(IST)").text();
+            String author = doc.select("span[itemprop=author]").text();
+            String timestamp = "";
+            try
+            {
+                timestamp = doc.selectFirst(".time_cptn span:contains(IST)").text();
+            } catch (NullPointerException ne)
+            {
+                System.out.println("");
+            }
+
             //String tags = doc.select(".related-tags a[href]").text();
             String content = doc.select(".normal").text();
 
             News news = new News(timestamp,title,author,content);
 
-            /*System.out.println(title);
+            System.out.println(title);
             System.out.println(author);
             System.out.println(timestamp);
             //System.out.println(tags);
-            //System.out.println(content);
+            System.out.println(content);
 
-            String timestampArray[] = timestamp.replaceAll("[,;:]"," ").split("\\s");
+            /*String timestampArray[] = timestamp.replaceAll("[,;:]"," ").split("\\s");
             String month = timestampArray[0];
             String date = timestampArray[1];
             String year = timestampArray[3];
@@ -176,6 +191,29 @@ public class SiteScraper
             System.out.println(yearInt);
             System.out.println(hourInt);
             System.out.println(minutesInt);*/
+        }
+
+        else if(compare.matches("(.*)espn(.*)"))
+        {
+            String title = doc.title();
+            String author = doc.selectFirst(".author").text();
+            String timestamp = "";
+            try
+            {
+                timestamp = doc.selectFirst(".time").text();
+            } catch (NullPointerException ne)
+            {
+                System.out.println("");
+            }
+            String tags = "sports";
+            String content = doc.select(".article-body p").text();
+
+            News news = new News(timestamp,title,author,content,tags);
+            System.out.println(title);
+            System.out.println(author);
+            System.out.println(timestamp);
+            System.out.println(tags);
+            System.out.println(content);
         }
     }
 }
