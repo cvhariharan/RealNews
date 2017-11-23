@@ -1,6 +1,10 @@
 # 23.11.17
 
 ### commit
+* added String url to class News
+* news objects are no longer formed if an attribute is null
+
+### commit 7b2520754126c568a36c6be9a3c78a363f1040f5
 * added support for espn
 * added default tags
 

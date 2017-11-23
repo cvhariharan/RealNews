@@ -19,13 +19,19 @@ public class SiteScraper
         //checking domains and fetching content using appropriate tags
         if(compare.matches("(.*)life(.*)") || compare.matches("(.*)kotaku(.*)")  || compare.matches("(.*)io9(.*)"))
         {
-            String title = doc.title();
-            String author = doc.select(".meta__byline").first().text();
-            String timestamp = doc.select(".meta__time").first().text();
-            String tags = doc.select(".post-tags-container").first().text();
-            String content = doc.select(".post-content").first().text();
-
-            News news = new News(timestamp,title,author,content,tags);
+            String title,author,timestamp,tags,content;
+            try
+            {
+                title = doc.title();
+                author = doc.select(".meta__byline").first().text();
+                timestamp = doc.select(".meta__time").first().text();
+                tags = doc.select(".post-tags-container").first().text();
+                content = doc.select(".post-content").first().text();
+            } catch (NullPointerException ne)
+            {
+                return;
+            }
+            News news = new News(timestamp,title,author,content,tags,url.toExternalForm());
             System.out.println(title);
             System.out.println(author);
             System.out.println(timestamp);
@@ -37,20 +43,20 @@ public class SiteScraper
 
         else if(compare.matches("(.*)anandtech(.*)"))
         {
-            String title = doc.title();
-            String author = doc.select("a[class=b]").text();
-            String timestamp = "";
+            String title,author,timestamp,tags,content;
             try
             {
+                title = doc.title();
+                author = doc.select("a[class=b]").text();
                 timestamp = doc.selectFirst("em").text();
+                tags = doc.select(".hide_resp2 li a[href]").text();
+                content = doc.select(".articleContent").text();
             } catch (NullPointerException ne)
             {
-                System.out.println("");
+                return;
             }
-            String tags = doc.select(".hide_resp2 li a[href]").text();
-            String content = doc.select(".articleContent").text();
 
-            //News news = new News(timestamp,title,author,content,tags);
+            News news = new News(timestamp,title,author,content,tags,url.toExternalForm());
             System.out.println(title);
             System.out.println(author);
             System.out.println(timestamp);
@@ -60,13 +66,19 @@ public class SiteScraper
 
         else if(compare.matches("(.*)businessline(.*)"))
         {
-            String title = doc.title();
-            String author = doc.select(".author").text();
-            String timestamp = doc.selectFirst(".photo-caption:contains(published on)").text();
-            String tags = doc.select(".related-tags a[href]").text();
-            String content = doc.select(".article-text p[class]").text();
-
-            News news = new News(timestamp,title,author,content,tags);
+            String title,author,timestamp,tags,content;
+            try
+            {
+                title = doc.title();
+                author = doc.select(".author").text();
+                timestamp = doc.selectFirst(".photo-caption:contains(published on)").text();
+                tags = doc.select(".related-tags a[href]").text();
+                content = doc.select(".article-text p[class]").text();
+            } catch (NullPointerException ne)
+            {
+                return;
+            }
+            News news = new News(timestamp,title,author,content,tags,url.toExternalForm());
 
             /*System.out.println(title);
             System.out.println(author);
@@ -122,26 +134,23 @@ public class SiteScraper
 
         else if(compare.matches("(.*)timesofindia(.*)"))
         {
-            String title = doc.title();
-            String author = doc.select("span[itemprop=author]").text();
-            String timestamp = "";
+            String title,author,timestamp,tags,content;
             try
             {
+                title = doc.title();
+                author = doc.select("span[itemprop=author]").text();
                 timestamp = doc.selectFirst(".time_cptn span:contains(IST)").text();
+                content = doc.select(".normal").text();
             } catch (NullPointerException ne)
             {
-                System.out.println("");
+                return;
             }
 
-            //String tags = doc.select(".related-tags a[href]").text();
-            String content = doc.select(".normal").text();
-
-            News news = new News(timestamp,title,author,content);
+            News news = new News(timestamp,title,author,content,url.toExternalForm());
 
             System.out.println(title);
             System.out.println(author);
             System.out.println(timestamp);
-            //System.out.println(tags);
             System.out.println(content);
 
             /*String timestampArray[] = timestamp.replaceAll("[,;:]"," ").split("\\s");
@@ -195,20 +204,21 @@ public class SiteScraper
 
         else if(compare.matches("(.*)espn(.*)"))
         {
-            String title = doc.title();
-            String author = doc.selectFirst(".author").text();
-            String timestamp = "";
+            String title,author,timestamp,tags,content;
             try
             {
+                title = doc.title();
+                author = doc.selectFirst(".author").text();
                 timestamp = doc.selectFirst(".time").text();
+                tags = "sports";
+                content = doc.select(".article-body p").text();
+
             } catch (NullPointerException ne)
             {
-                System.out.println("");
+                return;
             }
-            String tags = "sports";
-            String content = doc.select(".article-body p").text();
 
-            News news = new News(timestamp,title,author,content,tags);
+            News news = new News(timestamp,title,author,content,tags,url.toExternalForm());
             System.out.println(title);
             System.out.println(author);
             System.out.println(timestamp);

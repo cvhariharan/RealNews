@@ -32,7 +32,6 @@ public class XmlParse
             if(element.getTagName().equals("link"))
             {
                 htmlUrl = element.getTextContent();
-                System.out.println();
                 URL urlHtml = new URL(htmlUrl);
                 new SiteScraper().siteScrape(urlHtml);
             }
