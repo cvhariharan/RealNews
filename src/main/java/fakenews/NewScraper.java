@@ -26,17 +26,18 @@ public class NewScraper {
         FileWriter articleTxt = null;
         for(String url: urls)
         {
+            
+            url = "https://www.cbsnews.com"+url;
             System.out.println(url);
-            url = "https://timesofindia.indiatimes.com"+url;
             Document doc = Jsoup.connect(url).get();
-            articleTxt = new FileWriter("timesofindia1/"+doc.title().replaceAll("[^\\w]", " ")+".txt");
+            articleTxt = new FileWriter("cbsnews/"+doc.title().replaceAll("[^\\w]", " ")+".txt");
             br = new BufferedWriter(articleTxt);
-            Elements article = doc.getElementsByClass("article_content clearfix");
-            String content = article.text();
-            /*for(Element para: article)
+            Elements article = doc.select("#article-entry > div > p");
+            String content = "";
+            for(Element para: article)
             {
                 content += para.text();
-            }*/
+            }
             System.out.println(content);
             br.write(content);
             br.close();

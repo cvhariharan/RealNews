@@ -25,7 +25,7 @@ public class Detector {
                         "\n" +
                         "@data\n" +
                         "'";
-        FileWriter fw = new FileWriter("test.arff");
+        FileWriter fw = new FileWriter("data/test.arff");
         BufferedWriter bw = new BufferedWriter(fw);
         news = news+"',?";
         toWrite += news;

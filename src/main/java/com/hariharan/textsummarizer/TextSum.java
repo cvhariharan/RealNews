@@ -238,29 +238,18 @@ public class TextSum {
             System.out.println(s+": "+counter.computeCosine(s));
        counter.sortByValue();
        //counter.showSentences();*/
-        String news = "Zimbabwe's President Robert Mugabe says he is resigning immediately and voluntarily in order to have a \"smooth transfer of power\" after 37 years in charge.\n" +
-"The letter was read out in a cheering, dancing Parliament, which had been pursuing impeachment of the 93-year-old Mugabe, the world's oldest head of state.\n" +
-"The resignation comes at the end of a week of extraordinary events that began with the military moving in last week, angered by Mugabe's firing of his longtime deputy and the positioning of the unpopular first lady to succeed him.\n" +
-"Impeachment allegations against Mugabe included that he \"allowed his wife to usurp constitutional power\" and that he is \"of advanced age\" and too incapacitated to rule.\n" +
-"Mugabe also was accused of allowing unpopular first lady Grace Mugabe to threaten to kill the recently fired Vice President Emmerson Mnangagwa and other officials.\n" +
-"Earlier\n" +
-"HARARE, Zimbabwe (AP) — Zimbabwe's Parliament launched impeachment proceedings against President Robert Mugabe on Tuesday, with both ruling party and opposition support, while the recently fired vice president said the world's oldest head of state should acknowledge the nation's \"insatiable desire\" for a leadership change and resign immediately.\n" +
-"The statement by Emmerson Mnangagwa added to immense pressure on the 93-year-old Mugabe to quit after nearly four decades in power, during which he evolved from a champion of the fight against white minority rule into a figure blamed for a collapsing economy, government dysfunction and human rights violations.\n" +
-"The ruling ZANU-PF party began impeachment proceedings against Mugabe after its Central Committee voted to oust the president as party leader and select Mnangagwa as his replacement, a move that eventually could allow the former vice president to become head of state. Mnangagwa served for decades as Mugabe's enforcer, with a reputation for being astute and ruthless, more feared than popular.\n" +
-"Crowds rallied outside Parliament, dancing and singing. Some people placed photos of Mugabe in the street so that cars would run over them. Opposition leader Morgan Tsvangirai of the MDC party said the culture of the ruling party \"must end\" and everyone must put their heads together and work toward free and fair elections.\n" +
-"The impeachment motion was introduced by the ruling party and seconded by the opposition MDC.\n" +
-"\"The people of Zimbabwe have spoken with one voice and it is my appeal to President Mugabe that he should take heed of this clarion call and resign forthwith so that the country can move forward and preserve his legacy,\" Mnangagwa said in his statement, after more than a week of silence.\n" +
-"Mnangagwa, who fled the country and has not appeared in public during the past week's political turmoil, said Mugabe had invited him to return to Zimbabwe \"for a discussion\" on recent events. However, he said he will not return for now, alleging that there had been plans to kill him at the time of his firing.\n" +
-"\"I will be returning as soon as the right conditions for security and stability prevail,\" said Mnangagwa, who has a loyal support base in the military. \"Never should the nation be held at ransom by one person ever again, whose desire is to die in office at whatever cost to the nation.\"\n" +
-"Zimbabwe's polarizing first lady, Grace Mugabe, had been positioning herself to succeed her husband, leading a party faction that engineered Mnangagwa's ouster. The prospect of a dynastic succession alarmed the military, which confined Mugabe to his home last week and targeted what it called \"criminals\" around him who allegedly were looting state resources — a reference to associates of the first lady.\n" +
-"Mnangagwa was targeted by U.S. sanctions in the early 2000s for undermining democratic development in Zimbabwe, according to the Atlantic Council, a U.S.-based policy institute. However, J. Peter Pham, an Africa expert at the council, noted that some Zimbabwean opposition figures have appeared willing to have dialogue with Mnangagwa in order to move the country forward and that the international community should consider doing the same.\n" +
-"\"We're not saying whitewash the past, but it is in the interests of everyone that Zimbabwe is engaged at this critical time,\" Pham said in a statement.\n" +
-"Regional leaders continued efforts to find a solution to the political turmoil, with South Africa's state-run broadcaster reporting that the presidents of South Africa and Angola would travel to Zimbabwe on Wednesday to meet with \"stakeholders\" in the political crisis, including Mugabe and the military.\n" +
-"Impeachment proceedings began days after huge crowds surged through the capital, Harare, to demand that Mugabe quit. The ruling party had instructed government ministers to boycott a Cabinet meeting that Mugabe called for Tuesday morning at State House, the president's official residence, and instead attend a meeting at party headquarters to work on the impeachment.\n" +
-"The ruling party says the charges for impeachment include that Mugabe \"allowed his wife to usurp constitutional power\" and that he is \"of advanced age\" and no longer has the physical capacity to run the government.\n" +
-"It was not clear how long the impeachment process could take. The ruling party has said Mugabe could be voted out as early as Wednesday but some analysts believe the impeachment process could take weeks and would, if conducted properly, allow Mugabe to make a case in his defense.\n" +
-"Mnangagwa said he was aware of the move to impeach Mugabe. Though unpopular in some parts of Zimbabwe, the former vice president called for unity and appeared to embrace the prospect of taking over power.\n" +
-"\"I will not stand in the way of the people and my party,\" he said.";
+        /*String news = "Florida man Bruce John Homer, 61, was so driven to prove a busy intersection in his neighborhood unsafe that police said he purposely crashed his truck into an SUV to make the point.\n" +
+"\n" +
+"“People are always running the stop sign at this intersection and since you guys (law enforcement) don’t do anything about it, I did,” Homer told Lake County sheriff’s deputies after his Sunday smashup, according to Orlando station WFTV. No one was injured, according to WKMG.\n" +
+"\n" +
+"The SUV driver told deputies he was going through the intersection in Clermont when Homer’s truck pulled out in front of him, according to the Daily Commercial. The motorist said Horner then walked up to him and said: “You ran the stop sign and this is the 10th accident at this intersection and they won’t do anything until someone dies.”\n" +
+"\n" +
+"Deputies said Homer took credit for the crash ― and it may not have been his first. Homer told investigators he and his wife almost crashed at the same intersection a couple of weeks ago.\n" +
+"\n" +
+"“I ran some guy off the road after I saw him blow through the intersection,” investigators said Horner told them.\n" +
+"\n" +
+"\n" +
+"Homer was charged with two counts of aggravated battery with a deadly weapon and one count of reckless driving. He was released from the Lake County Jail after posting a $20,500 bond.";
         TextSum c = new TextSum();
         Detector d = new Detector(c.normalize(news));
         System.out.println(d.detect());
@@ -270,6 +259,7 @@ public class TextSum {
             c.computeCosine(s);
         }
         c.sortByValue(5);
-        
+        */
+        Collector c = new Collector();
     }
 }
