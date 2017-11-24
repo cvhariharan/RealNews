@@ -30,7 +30,7 @@ import opennlp.tools.postag.POSTaggerME;
 import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
 import java.sql.*;
-import static jdbcdemo.Driver.*;
+
 /**
  *
  * @author thero
@@ -191,16 +191,6 @@ public class TextSum {
         sortedMap.putAll(this.sentences);
         System.out.println("SUMMARY...");
         int i = 0;
-        /*for(String s: keys)
-        {
-            if(i!=count)
-            {
-                System.out.println(this.sentenceMap.get(s));
-                i++;
-            }
-            else
-                break;
-        }*/
         for(String s: this.sentenceMap.keySet())
         {
             if( i <= count)
