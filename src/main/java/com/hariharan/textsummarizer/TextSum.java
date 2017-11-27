@@ -228,7 +228,12 @@ public class TextSum {
             System.out.println(s+": "+counter.computeCosine(s));
        counter.sortByValue();
        //counter.showSentences();*/
-        String news = "";
+        String news = "NEW DELHI: Still in a mood of celebration marking five years of foundation, Aam Aadmi Party (AAP) has faced tax heat with the Income Tax (I-T) department serving a Rs 30.67 crore notice to the party. The tax notice has asked AAP why Rs 30.67 crore should not be recovered from the party. It has been asked to furnish a reply by December 7.\n" +
+"The Income Tax department has declared all the donations AAP has received as illegal. AAP national convener Arvind Kejriwal + saw height of political vendetta in the income tax notice. \"In the history of India, All donations to a political party have been declared illegal. All these were accounted for and shown in books of accounts. This is height of political vendetta,\" he tweeted.\"All our donations have been declared taxable income and the department has demanded tax on the income. AAP has made all political donations transparent in its attempts to bring out Indian politics from the muddle of black money. The party's honest politics is being appreciated the world over. But the government is trying to harass us,\" AAP national treasurer Deepak Bajpai said.\n" +
+"Terming the tax notice a \" vindictive action+ \", AAP declared it was \"bogus\" and served to target the party.Income Tax notices to AAP are not a new development. Since it came to power, AAP has received several notices - some regarding its foreign funding and the rest about irregularities in the details the party uploaded on its website and details it furnished with the I-T department.\n" +
+"In December 2016 also, AAP was served a notice by the department citing discrepancies in the donors' list submitted to the I-T officials and those uploaded on AAP website. AAP has often termed the notices as attempt by the Centre to harass the party.The I-T notices featured in Delhi CM Arvind Kejriwal's speech at the foundation day celebrations at Ramlila Maidan on Sunday when he said that the Center has been harassing even small donors of AAP.\n" +
+"\"The more AAP is attacked, the more stronger it will become,\" said Bajpai who predicted that the current notice will not sustain in the court.\n" +
+"In Video: I-T dept sends Rs 30.67 crore tax notice to Arvind Kejriwal's Aam Aadmi Party";
         TextSum c = new TextSum();
         Detector d = new Detector(c.normalize(news));
         System.out.println(d.detect());
@@ -237,7 +242,7 @@ public class TextSum {
         {
             c.computeCosine(s);
         }
-        c.sortByValue(5);
+        c.sortByValue(6);
         
        
     }
