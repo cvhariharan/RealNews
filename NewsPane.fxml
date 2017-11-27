@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.Icon?>
+<?import com.gluonhq.charm.glisten.control.ToggleButtonGroup?>
+<?import javafx.scene.PointLight?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <PointLight blendMode="MULTIPLY" color="CHARTREUSE" layoutX="300.0" layoutY="200.0" />
+            <TextArea layoutY="153.0" prefHeight="247.0" prefWidth="600.0" />
+            <ImageView fitHeight="400.0" fitWidth="600.0" layoutX="-2.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Pictures/YBD%20park%20evs/IMG_3694.JPG" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutX="4.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Climate Change: A Hoax" wrappingWidth="370.9830722808838">
+               <font>
+                  <Font name="BigJohn" size="36.0" />
+               </font>
+            </Text>
+            <ProgressBar cache="true" layoutX="-2.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="600.0" progress="1.0">
+               <effect>
+                  <ColorAdjust hue="0.9" />
+               </effect>
+            </ProgressBar>
+            <Icon content="REPORT" layoutX="564.0" layoutY="12.0" />
+            <ToggleButtonGroup blendMode="OVERLAY" layoutX="4.0" layoutY="339.0" prefHeight="42.0" prefWidth="105.0" selectionType="MULTIPLE">
+                <toggles>
+                    <ToggleButton>
+                        <graphic>
+                            <Icon content="SAVE" prefWidth="22.0" />
+                        </graphic>
+                    </ToggleButton>
+                    <ToggleButton selected="true">
+                        <graphic>
+                            <Icon content="THUMB_UP" />
+                        </graphic>
+                    </ToggleButton>
+                    <ToggleButton>
+                        <graphic>
+                            <Icon content="THUMB_DOWN" />
+                        </graphic>
+                    </ToggleButton>
+                </toggles>
+            </ToggleButtonGroup>
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="491.0" layoutY="344.0" minWidth="51.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="84.0" text="Summarize" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="CLIP">
+               <font>
+                  <Font name="GloberThinFree" size="12.0" />
+               </font>
+            </Button>
+            <Pane fx:id="summarizeBtn" layoutY="12.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="12.0" />
+         </children></AnchorPane>
+  </content>
+</ScrollPane>

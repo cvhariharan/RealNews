@@ -58,9 +58,12 @@ public class Login extends Application {
         Button btnExit = new Button("Exit");
         //btnSignUp.setStyle("-fx-font-size: 15pt;");
         
-        Text scenetitle = new Text("BroCode");
-        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        Text scenetitle = new Text("News");
+        Text scenetitle1 = new Text("Reader");
+        scenetitle.setFont(Font.font("Big John", FontWeight.NORMAL, 36));
+        scenetitle1.setFont(Font.font("Slim Joe", FontWeight.NORMAL, 36));
         grid.add(scenetitle, 0, 0, 1, 1);
+        grid.add(scenetitle1, 1, 0, 1, 1);
 
         Label userName = new Label("User Name:");
         grid.add(userName, 0, 1);
