@@ -14,16 +14,16 @@ public class Jdbc {
 
 	public Connection connection;
 	public Jdbc(){
-		
-        try {
+        
+            try {
             Connection connection1 = getConnection();
             this.connection=connection1;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         }	
-
-	public  void update(String query)throws Exception{
+            
+        public  void update(String query)throws Exception{
 		try {
 			Connection con = connection;
 			//query = "update NewsArticles set 'Title' = ? where id = ?";
@@ -67,9 +67,9 @@ public class Jdbc {
 		try {
 			Connection con = connection;
 			PreparedStatement post = con.prepareStatement(query);
-		    post.executeUpdate();
+                        post.executeUpdate();
 		}catch(Exception e) {
-			System.out.println(e);
+                    System.out.println(e.getMessage());
 			}
 		finally {
 			System.out.println("INSERT COMPLETED");
@@ -78,8 +78,8 @@ public class Jdbc {
 	public  void createTable() throws Exception{
 		try {
 		Connection con = connection;
-		PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS NewsArticles(id int NOT NULL AUTO_INCREMENT, Title MEDIUMTEXT, Content LONGTEXT, Author MEDIUMTEXT, Date MEDIUMTEXT, Link MEDIUMTEXT, fakevotes int, realvotes int, Guess BOOLEAN, RealClassification LINESTRING, PRIMARY KEY(id))");
-	    create.executeUpdate();
+		PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS NewsArticles2(id int NOT NULL AUTO_INCREMENT, Title MEDIUMTEXT, Content LONGTEXT, Author MEDIUMTEXT, Date MEDIUMTEXT, Link MEDIUMTEXT, fakevotes int, realvotes int, Guess BOOLEAN, RealClassification LINESTRING, PRIMARY KEY(id))");
+                create.executeUpdate();
 		}catch(Exception e) {
 			System.out.println(e);
 			}
@@ -88,19 +88,21 @@ public class Jdbc {
 		}
 	}
 	public  Connection getConnection() throws Exception{
-         try {
+         try 
+         {
         	 String driver = "com.mysql.jdbc.Driver";
-        	 String url = "jdbc:mysql://sql12.freemysqlhosting.net/sql12206575";
-        	 String username = "sql12206575";
-        	 String password = "YbQZhyey7x";
+        	 String url = "jdbc:mysql://localhost/database";
+        	 String username = "root";
+        	 String password = "Ayudrag11@";
         	 Class.forName(driver);
         	 Connection mycon = DriverManager.getConnection(url, username, password);
         	 System.out.println("Connected");
         	 return mycon;
          }
-        	 catch(Exception e){
+        	 catch(Exception e)
+                 {
         		 System.out.println(e);
-        		 }
+                 }
          return null;
 	}
 	}
