@@ -45,7 +45,7 @@ public class TextSum {
     public HashMap<String, String> sentenceMap; //Holds normalized sentences with original sentences.
     private SentenceModel model = null;
     private POSModel pos = null;
-    private static SentenceDetectorME sentBreak = null;
+    public static SentenceDetectorME sentBreak = null;
     private static  POSTaggerME posTagger = null;
     public TextSum() 
     {
