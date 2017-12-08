@@ -92,7 +92,7 @@ public class TextSum {
         
     }
     
-    public String normalize(String text)
+    public static String normalize(String text)
     {
         String normalized = text.replaceAll("[^a-zA-Z]", " ").replaceAll(" +", " ").toLowerCase().trim();
         return normalized;
@@ -235,7 +235,7 @@ public class TextSum {
 "\"The more AAP is attacked, the more stronger it will become,\" said Bajpai who predicted that the current notice will not sustain in the court.\n" +
 "In Video: I-T dept sends Rs 30.67 crore tax notice to Arvind Kejriwal's Aam Aadmi Party";
         TextSum c = new TextSum();
-        Detector d = new Detector(c.normalize(news));
+        Detector d = new Detector(TextSum.normalize(news));
         System.out.println(d.detect());
         c.setText(news);
         for(String s: sentBreak.sentDetect(news))
