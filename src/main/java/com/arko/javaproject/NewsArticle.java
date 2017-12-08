@@ -12,10 +12,12 @@ public class NewsArticle {
      String[] tokens;
      ArrayList<String> impWords; 
      int totalFreq;
+     String sentiment;
      
      public NewsArticle(String article,String articleId) throws IOException{
          
          this.article=article;
+         this.sentiment=SentimentAnalysisClass.sentiment(this.article);
          this.articleId=articleId;
          tokens=WordRating.retTokens(this.article);
          FreqImpWords f=WordRating.rate(tokens);

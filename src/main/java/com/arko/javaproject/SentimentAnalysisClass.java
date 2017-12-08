@@ -16,6 +16,7 @@ public class SentimentAnalysisClass {
         builder.setText(news);
         try {
             Sentiment s=client.sentiment(builder.build());
+            
             return s.toString();
         } catch (TextAPIException ex) {
             ex.printStackTrace();

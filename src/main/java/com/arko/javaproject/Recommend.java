@@ -1,17 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.arko.javaproject;
 
 
+
+import com.ayush.jdbc.AddArticles;
+import com.ayush.jdbc.Jdbc;
 import java.io.IOException;
+import java.sql.Array;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Recommend {
@@ -21,20 +26,41 @@ public class Recommend {
             
     Recommend(){
        articles=new ArrayList<>();
-       a="Donald Trump to Brigitte Macron, wife of French president Emmanuel Macron. You're in such good shape. She's in such good physical shape. Beautiful,the American president told the French first couple, as U.S. first lady Melania Trump stood by. The reaction from predictable sources was predictable. Creepy, the Twitterverse declared. Feminists rolled their collective eyes at a president who can't seem, at time, to make the transition from beauty pageant owner to nominal leader of the free world. The Australian foreign minister said she'd be taken aback if it was said to her, then wondered aloud if the same could be said to the non-exercising, fast food-consuming Trump.";
-    
+      
     }
     
 //we will get the articles from database
     
     public ArrayList<NewsArticle> recommend(NewsArticle likedArticle) throws IOException{      //send the NewsArticle object of the article liked by the user
         //articles=......      read all the articles which match the sentiment and the topic of discussion 
-        NewsArticle s=new NewsArticle(a,"2");
-        articles.add(s);
+        
         ArrayList<String> impWords;
         impWords=likedArticle.impWords;
         
-      
+        AddArticles art=new AddArticles();
+        try {
+            ResultSet res=art.select("ARTICLESf","id='"+likedArticle.articleId+"'");
+            String category=res.getString("category");
+            String sentiment=res.getString("Sentiment");
+            String[] a=sentiment.split(" ");
+            
+            
+            ResultSet rs=art.select("ARTICLESf","Category='"+category+"',Sentiment like \"%"+a[0]+"%\"");
+            
+         do{
+            NewsArticle n=ObjectString.getObject((byte[])rs.getBytes("NewsArticle"));
+            articles.add(n);
+         } while (rs.next());
+
+            rs.getBinaryStream("NewsArticle");
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        
+        
          
         HashMap<String,Integer> freq=new HashMap<String,Integer>();
         int flag=0;
@@ -58,7 +84,7 @@ public class Recommend {
         HashMap<NewsArticle,Double> rt_idf=new HashMap<>();
         
         for(NewsArticle na:articles){
-            System.out.println(na.articleId);
+          
             int f=freq.get(na.articleId.trim());
             double val=Math.log10(na.totalFreq/f);
             rt_idf.put(na, val);
