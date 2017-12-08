@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.arko.javaproject;
 
 import java.io.BufferedReader;
@@ -23,24 +19,9 @@ import opennlp.tools.tokenize.TokenizerModel;
 
 public class WordRating {
     
-     CountWords c;
-     HashMap<String,Double> rt_idfRating;
-     String article;
-     String articleId;
-     String[] tokens;
-     
-     WordRating(String article){
-         this.article=article;
-         c=new CountWords();
-     }
-    
-     public ArrayList<String> rate() throws FileNotFoundException, IOException{
-         
-        FileInputStream file= new FileInputStream("en-token.bin");
-        TokenizerModel tokenizerModel=new TokenizerModel(file);
-        TokenizerME tokenizer=new TokenizerME(tokenizerModel);
-        tokens=tokenizer.tokenize(article);
-        
+
+     public static FreqImpWords rate(String[] tokens) throws FileNotFoundException, IOException{
+        CountWords c=new CountWords();  
         ArrayList<String> distinctWords=new ArrayList<>();
         ArrayList<String> stopWords=new ArrayList<>();
          
@@ -74,7 +55,7 @@ public class WordRating {
         }
         
         //get frequency of distinct words and add them to hashmap
-         rt_idfRating =new HashMap<>();
+        HashMap<String,Double> rt_idfRating =new HashMap<>();
         
         for(String word:distinctWords){
            double freq=c.count(word);
@@ -104,17 +85,28 @@ public class WordRating {
                 }
             }
         }
-       return mostFreq;  //return the ArrayList
+        FreqImpWords f=new FreqImpWords(c.totalFreq,mostFreq);
+       return f;  
     }
-    public static <K, V extends Comparable<? super V>> List<Map.Entry<K, V>>findGreatest(HashMap<K, V> map, int n)
-    {
+     public static String[] retTokens(String article) throws FileNotFoundException, IOException{
+         String[] tokens; 
+        FileInputStream file= new FileInputStream("en-token.bin");
+        TokenizerModel tokenizerModel=new TokenizerModel(file);
+        TokenizerME tokenizer=new TokenizerME(tokenizerModel);
+        tokens=tokenizer.tokenize(article);
+        return tokens;
+     }
+     
+     
+    public static <K, V extends Comparable<? super V>> List<Map.Entry<K, V>> findGreatest(HashMap<K, V> map, int n){ //method will work for all class refernces that implements the Comparable class
+        
         Comparator<? super Map.Entry<K, V>> comparator = new Comparator<Map.Entry<K, V>>()
-        {
+        {   //override the compare method to compare two HashMaps
             @Override
-            public int compare(Map.Entry<K, V> e0, Map.Entry<K, V> e1)
+            public int compare(Map.Entry<K, V> e1, Map.Entry<K, V> e2)
             {
-                V v0 = e0.getValue();
-                V v1 = e1.getValue();
+                V v0 = e1.getValue();
+                V v1 = e2.getValue();
                 return v0.compareTo(v1);
             }
         };
@@ -127,7 +119,7 @@ public class WordRating {
                 highest.poll();
             }
         }
-        List<Map.Entry<K, V>> result = new ArrayList<Map.Entry<K,V>>();
+        List<Map.Entry<K, V>> result = new ArrayList<>();
         while (highest.size() > 0)
         {
             result.add(highest.poll());

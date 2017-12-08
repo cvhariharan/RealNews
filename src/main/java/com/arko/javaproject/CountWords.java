@@ -8,7 +8,7 @@ package com.arko.javaproject;
 import java.util.HashMap;
 
 
-public class CountWords {
+ public class CountWords {
      public HashMap<String,Integer> count=new HashMap<>();
      int totalFreq;
     
