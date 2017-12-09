@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.MainPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.brocode.mainproject.MainPageController">
    <children>
-      <SplitPane dividerPositions="0.2266514806378132" layoutX="1.0" layoutY="-4.0" prefHeight="587.0" prefWidth="880.0">
+      <SplitPane dividerPositions="0.08193979933110368" layoutX="1.0" layoutY="-4.0" prefHeight="587.0" prefWidth="880.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-4.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="407.0" prefWidth="83.0">
                <children>
@@ -28,13 +28,13 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="407.0" prefWidth="362.0">
                <children>
-                  <Label layoutX="222.0" layoutY="14.0" prefHeight="45.0" prefWidth="214.0" text=" News Reader">
+                  <Label layoutX="252.0" layoutY="14.0" prefHeight="45.0" prefWidth="271.0" text=" News Reader" textAlignment="CENTER" AnchorPane.topAnchor="14.0">
                      <font>
                         <Font name="BigJohn" size="30.0" />
                      </font>
                   </Label>
-                  <Separator layoutX="93.0" layoutY="52.0" prefHeight="4.0" prefWidth="438.0" />
-                  <ListView fx:id="news" layoutX="5.0" layoutY="56.0" prefHeight="528.0" prefWidth="657.0" />
+                  <Separator layoutX="182.0" layoutY="49.0" prefHeight="4.0" prefWidth="438.0" />
+                  <ListView fx:id="news" layoutX="1.0" layoutY="53.0" prefHeight="531.0" prefWidth="802.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="53.0" />
                </children>
             </AnchorPane>
         </items>
