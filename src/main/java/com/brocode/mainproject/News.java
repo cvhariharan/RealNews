@@ -21,7 +21,7 @@ public class News
     String url;
     int ID,likes,fakes;
 
-    News(String timestamp, String title, String author, String content, String tags, String url)
+    News(String timestamp, String title, String author, String content, String tags, String url,int id)
     {
         this.timestamp = timestamp;
         this.title = title;
@@ -31,7 +31,7 @@ public class News
         this.url = url;
         this.likes = 0;
         this.fakes = 0;
-        this.ID = title.hashCode();
+        this.ID = id;
     }
 
     News(String timestamp,String title,String author,String content,String url)

@@ -17,7 +17,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
-
+import com.ayush.jdbc.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.*;
 public class MainPageController implements Initializable{
     
     
@@ -43,11 +46,31 @@ public class MainPageController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
+        try {
+            generateCards();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         List<String> values = Arrays.asList("one", "two", "three");
-
         news.setItems(FXCollections.observableList(values));
     }
-
+    public void generateCards() throws Exception
+    {
+        String tableName = "Articles0";
+        Jdbc conn = new Jdbc();
+        ResultSet results = conn.get("SELECT * FROM "+tableName+" WHERE 1 = 1");
+        while(results.next())
+        {
+            int id = results.getInt("id");
+            String title = results.getString("Title");
+            String content = results.getString("Content");
+            String timestamp = results.getString("Date");
+            String author = results.getString("Author");
+            String url = results.getString("Link");
+            News news = new News(timestamp,title,author,content,"",url,id);
+            
+        }
+    }
     
 
 }
