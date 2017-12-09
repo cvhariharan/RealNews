@@ -184,8 +184,9 @@ public class TextSum {
         return vector;
     }
     
-    public Map<String, Double> sortByValue(int count)
+    public String sortByValue(int count)
     {
+        String news = "";
         ValueComparator comp = new ValueComparator(this.sentences);
         Map<String, Double> sortedMap = new TreeMap(comp);
         sortedMap.putAll(this.sentences);
@@ -197,7 +198,7 @@ public class TextSum {
             {
                 if(sortedMap.containsKey(s))
                 {
-                   System.out.println(this.sentenceMap.get(s));
+                   news += this.sentenceMap.get(s);
                    i++;
                 }
             }
@@ -205,7 +206,7 @@ public class TextSum {
                 break;
             
         }
-        return sortedMap;
+        return news;
     }
     public void showSentences()
     {
@@ -242,7 +243,7 @@ public class TextSum {
         {
             c.computeCosine(s);
         }
-        c.sortByValue(6);
+        System.out.println(c.sortByValue(6));
         
        
     }
