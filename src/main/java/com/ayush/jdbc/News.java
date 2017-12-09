@@ -5,6 +5,8 @@
  */
 package com.ayush.jdbc;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author asus
@@ -14,18 +16,12 @@ public class News
 {
 
     String timestamp;
-
     String title;
-
     String authorName;
-
     String content;
-
     String tags;
-
     String url;
-
-
+    int ID,likes,fakes;
 
     News(String timestamp, String title, String author, String content, String tags, String url)
 
@@ -42,6 +38,9 @@ public class News
         this.tags = tags;
 
         this.url = url;
+        this.likes = 0;
+        this.fakes = 0;
+        this.ID = title.hashCode();
 
     }
 
@@ -60,7 +59,35 @@ public class News
         this.content = content;
 
         this.url = url;
+        this.likes = 0;
+        this.fakes = 0;
+        this.ID = title.hashCode();
 
+    }
+     public int getLikes()
+    {
+        return likes;
+    }
+
+    public void incrementLikes() throws SQLException
+    {
+        this.likes++;
+        AddArticles addr = new AddArticles();
+        addr.update("UPDATE Articlesf SET likes = '"+likes+"' WHERE ID = '"+this.ID+"'");
+    }
+
+    public int getFakes()
+    {
+        return fakes;
+        
+    }
+
+    public void incrementFakes() throws SQLException
+    {
+        this.fakes++;
+        AddArticles addr = new AddArticles();
+        addr.update("UPDATE Articlesf SET fakes = '"+fakes+"' WHERE ID = '"+this.ID+"'");
+        
     }
 
 }

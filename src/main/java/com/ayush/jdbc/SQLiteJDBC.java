@@ -9,8 +9,22 @@ package com.ayush.jdbc;
  *
  * @author asus
  */
-import java.sql.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import org.mindrot.jbcrypt.BCrypt;
+import java.sql.*;
+import java.util.Scanner;
+import sun.security.util.Password;
+
+
+//import org.mindrot
 public class SQLiteJDBC {
   private Connection c;
   public SQLiteJDBC() {
@@ -31,13 +45,21 @@ public class SQLiteJDBC {
       }
       return mycon;
    }
+   
+    public int getlikedArticle(String username) throws SQLException{
+        Statement stmt = c.createStatement();
+        String sq = "SELECT FROM USERnew where NAME LIKE '" + username +"';";
+        
+        ResultSet rs = stmt.executeQuery(sq);
+        return rs.getInt("Likedarticle");
+    }
  
     public void createTable(){
       try {
          Statement stmt2 = null;
          
          stmt2 = c.createStatement();
-         String sql = "CREATE TABLE IF NOT EXISTS USERSnew (NAME TEXT , EMAILID TEXT , PASSWORD TEXT )"; 
+         String sql = "CREATE TABLE IF NOT EXISTS USERSnew (NAME TEXT , PASSWORD TEXT , Likedarticle int)"; 
          System.out.println("test");
          stmt2.executeUpdate(sql);
           System.out.println("test2");
@@ -56,8 +78,17 @@ public class SQLiteJDBC {
         try { 
          Connection con = database();
          Statement stmt = con.createStatement();
-         String sql = "INSERT INTO USERSnew (NAME,EMAILID,PASSWORD) " +
-                        "VALUES ('AYUSH', 'am@gmail.com','hehe');"; 
+         String name,password;
+         System.out.println("Enter Name");
+         Scanner input = new Scanner(System.in);
+         name = input.nextLine();
+        
+          System.out.println("Enter Password");
+         password = input.nextLine();
+         
+         password = BCrypt.hashpw(password,BCrypt.gensalt());
+         String sql = "INSERT INTO USERSnew (NAME,PASSWORD) " +
+                        "VALUES ('" + name + "','" + password +"');";
          stmt.executeUpdate(sql);
          stmt.close();
          //con.commit();
@@ -83,11 +114,11 @@ public class SQLiteJDBC {
       while ( rs.next() ) {
       
          String  name = rs.getString("NAME");
-         String  email  = rs.getString("EMAILID");
+         
          String  password = rs.getString("PASSWORD");
          
          System.out.println( "NAME = " + name );
-         System.out.println( "EMAIL = " + email );
+        
          System.out.println( "PASSWORD = " + password );
         
          System.out.println();
@@ -104,8 +135,36 @@ public class SQLiteJDBC {
    return rs;
     }
 
+    public boolean login(String username, String password)
+    {
+        ResultSet rs=null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:users.db");
+            c.setAutoCommit(false);
+            System.out.println("Opened database successfully");
+            Statement stmt;
+            stmt = c.createStatement();
+            rs = stmt.executeQuery( "SELECT * FROM USERSnew where NAME LIKE '" + username +"';" );
+            
+            while ( rs.next() ) {
+                String  dbPassword = rs.getString("PASSWORD");
+                if(BCrypt.checkpw(password,dbPassword))
+                {
+                    System.out.println("login successful");
+                    return true;
+                }
+            }
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+        System.out.println("Operation done successfully");
+        return false;
     }
+}
+
     
-
-   
-
