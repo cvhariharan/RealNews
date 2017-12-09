@@ -5,10 +5,11 @@
  */
 package com.arko.javaproject;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 
- public class CountWords {
+ public class CountWords implements Serializable{
      public HashMap<String,Integer> count=new HashMap<>();
      int totalFreq;
     

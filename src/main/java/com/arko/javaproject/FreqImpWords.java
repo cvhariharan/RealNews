@@ -5,10 +5,11 @@
  */
 package com.arko.javaproject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class FreqImpWords {   // used this class two encapsulate data so as to return two values from a function.
+public class FreqImpWords implements Serializable {   // used this class two encapsulate data so as to return two values from a function.
    int totalFreq;
    ArrayList<String> impWords;
 

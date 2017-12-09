@@ -3,30 +3,21 @@ package com.arko.javaproject;
 
 
 
-import com.ayush.jdbc.AddArticles;
-import com.ayush.jdbc.Jdbc;
 import java.io.IOException;
-import java.sql.Array;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
-public class Recommend {
+public class Recommend implements Serializable {
     
     ArrayList<NewsArticle>  articles;      //NewsArticle type object of articles
     String a;
             
-    Recommend(){
-       articles=new ArrayList<>();
-      
+    public Recommend(ArrayList<NewsArticle> articles){
+       this.articles=articles;
     }
     
 //we will get the articles from database
@@ -36,33 +27,8 @@ public class Recommend {
         
         ArrayList<String> impWords;
         impWords=likedArticle.impWords;
-        
-        AddArticles art=new AddArticles();
-        try {
-            ResultSet res=art.select("ARTICLESf","id='"+likedArticle.articleId+"'");
-            String category=res.getString("category");
-            String sentiment=res.getString("Sentiment");
-            String[] a=sentiment.split(" ");
-            
-            
-            ResultSet rs=art.select("ARTICLESf","Category='"+category+"',Sentiment like \"%"+a[0]+"%\"");
-            
-         do{
-            NewsArticle n=ObjectString.getObject((byte[])rs.getBytes("NewsArticle"));
-            articles.add(n);
-         } while (rs.next());
-
-            rs.getBinaryStream("NewsArticle");
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-        
-        
-         
-        HashMap<String,Integer> freq=new HashMap<String,Integer>();
+                 
+        HashMap<String,Integer> freq=new HashMap<>();
         int flag=0;
         for(NewsArticle n:articles){
             for(String word:impWords){

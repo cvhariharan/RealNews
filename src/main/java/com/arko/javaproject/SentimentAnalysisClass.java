@@ -5,10 +5,11 @@ import com.aylien.textapi.TextAPIClient;
 import com.aylien.textapi.TextAPIException;
 import com.aylien.textapi.parameters.SentimentParams;
 import com.aylien.textapi.responses.Sentiment;
+import java.io.Serializable;
 
 
 
-public class SentimentAnalysisClass {
+public class SentimentAnalysisClass implements Serializable {
     
     public  static String sentiment(String news){   //used aylien api which is a good api and returns sentment with rating
         TextAPIClient client = new TextAPIClient("85cb56bf", "8c593d912708430f1da18bb0bb815980");

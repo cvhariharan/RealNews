@@ -8,6 +8,7 @@ package com.arko.javaproject;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;
@@ -17,7 +18,7 @@ import opennlp.tools.util.InvalidFormatException;
 import opennlp.tools.util.Span;
 
 
-public class FindNamesAndOrganisation {
+public class FindNamesAndOrganisation implements Serializable{
    
    
     

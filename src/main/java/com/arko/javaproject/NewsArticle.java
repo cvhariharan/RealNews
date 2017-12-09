@@ -6,9 +6,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class NewsArticle {
-     String article;
-     String articleId;
+public class NewsArticle implements Serializable{
+     public String article;
+     public String articleId;
      String[] tokens;
      ArrayList<String> impWords; 
      int totalFreq;
@@ -23,7 +23,7 @@ public class NewsArticle {
          FreqImpWords f=WordRating.rate(tokens);
          impWords=f.impWords;
          totalFreq=f.totalFreq;
-           for(String name:FindNamesAndOrganisation.getNames(FindNamesAndOrganisation.getKeyWords(this.article)))
+          for(String name:FindNamesAndOrganisation.getNames(FindNamesAndOrganisation.getKeyWords(this.article)))
           impWords.add(name);
          for(String org:FindNamesAndOrganisation.getOrganisation(FindNamesAndOrganisation.getKeyWords(this.article)))
           impWords.add(org);
