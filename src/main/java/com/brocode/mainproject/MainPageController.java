@@ -3,6 +3,8 @@ package com.brocode.mainproject;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Pagination;
@@ -37,8 +39,11 @@ public class MainPageController extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception 
     {
-        FXMLLoader loader = new FXMLLoader();
-        String fxmlDocPath = "C:\\Users\\thero\\Documents\\NetBeansProjects\\MainProject\\src\\main\\java\\com\\brocode\\mainproject\\MainPage.fxml";
+        Parent root = FXMLLoader.load(getClass().getResource("src/main/resources/fxml/MainPage.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("News Feed");
+        primaryStage.setScene(scene);
+        primaryStage.show();
         news.getItems().add("Item 1");
         news.getItems().add("Item 2");
         news.getItems().add("Item 3");
