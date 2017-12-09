@@ -24,6 +24,11 @@
             <artifactId>charm-glisten-4.4.1</artifactId>
             <version>4.4.1</version>
         </dependency>
+	<dependency>
+            <groupId>com</groupId>
+            <artifactId>JDBC</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 	</dependencies>
     <build>
         <plugins>
