@@ -1,6 +1,8 @@
 package com.brocode.mainproject;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,9 +13,12 @@ import javafx.scene.control.Pagination;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
 
-public class MainPageController extends Application{
+public class MainPageController{
     
-    
+    public MainPageController()
+    {
+        generateCards();
+    }
     @FXML
     private Button updatePasswordBtn;
 
@@ -28,25 +33,17 @@ public class MainPageController extends Application{
 
     @FXML
     private Button logoutBtn;
-    private ListView<String> news = new ListView<String>();
+    @FXML
+    private ListView<String> news = new ListView<>();
     
     
     private void generateCards()
     {
-        
+        ObservableList<String> items =FXCollections.observableArrayList (
+            "A", "B", "C", "D");
+        news.setItems(items);
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception 
-    {
-        Parent root = FXMLLoader.load(getClass().getResource("src/main/resources/fxml/MainPage.fxml"));
-        Scene scene = new Scene(root);
-        primaryStage.setTitle("News Feed");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        news.getItems().add("Item 1");
-        news.getItems().add("Item 2");
-        news.getItems().add("Item 3");
-    }
+    
 
 }

@@ -1,2 +1,1 @@
-com.mysql.jdbc.Driver
-com.mysql.fabric.jdbc.FabricMySQLDriver
+com.mysql.cj.jdbc.Driver

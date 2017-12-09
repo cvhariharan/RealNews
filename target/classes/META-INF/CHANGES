@@ -1,6 +1,47 @@
 jsoup changelog
 
-*** Release 1.11.1 [PENDING]
+*** Release 1.11.2 [PENDING]
+  * Improvement: added a new pseudo selector :matchText, which allows text nodes to match as if they were elements.
+    This enables finding text that is only marked by a "br" tag, for example.
+    <https://github.com/jhy/jsoup/issues/550>
+
+  * Change: marked Connection.validateTLSCertificates() as deprecated.
+
+  * Improvement: normalize invisible characters (like soft-hyphens) in Element.text().
+    <https://github.com/jhy/jsoup/issues/978>
+
+  * Improvement: added Element.wholeText(), to easily get the un-normalized text value of an element and its children.
+    <https://github.com/jhy/jsoup/pull/564>
+    
+  * Bugfix: in a deep DOM stack, a StackOverFlow exception could occur when generating implied end tags.
+    <https://github.com/jhy/jsoup/issues/966>
+
+  * Bugfix: when parsing attribute values that happened to cross a buffer boundary, a character was dropped.
+    <https://github.com/jhy/jsoup/issues/967>
+
+  * Bugfix: fixed an issue that prevented using infinite timeouts in Jsoup.Connection.
+    <https://github.com/jhy/jsoup/issues/968>
+
+  * Bugfix: whitespace preserving tags were not honoured when nested deeper than two levels deep.
+    <https://github.com/jhy/jsoup/issues/722>
+
+  * Bugfix: an unterminated comment token at the end of the HTML input would cause an out of bounds exception.
+    <https://github.com/jhy/jsoup/issues/972>
+
+  * Bugfix: an NPE in the Cleaner which would occur if an <a href> attribute value was missing.
+    <https://github.com/jhy/jsoup/issues/973>
+
+  * Bugfix: when serializing the same document in a multiple threads, on Android, with a character set that is not ascii
+    or UTF-8, an encoding exception could occur.
+    <https://github.com/jhy/jsoup/issues/970>
+
+  * Bugfix: removing a form value from the DOM would not remove it from FormData.
+    <https://github.com/jhy/jsoup/pull/969>
+
+  * Bugfix: in the W3CDom transformer, siblings were incorrectly inheriting namespaces defined on previous siblings.
+    <https://github.com/jhy/jsoup/issues/977>
+
+*** Release 1.11.1 [2017-Nov-06]
   * Updated language level to Java 7 from Java 5. To maintain Android support (of minversion 8), try-with-resources are
     not used.
     <https://github.com/jhy/jsoup/issues/899>
@@ -48,7 +89,7 @@ jsoup changelog
   * Added missing support for template tags in tables
     <https://github.com/jhy/jsoup/pull/901>
 
-   * In Jsoup.connect file uploads, added the ability to set the uploaded files' mimetype.
+  * In Jsoup.connect file uploads, added the ability to set the uploaded files' mimetype.
      <https://github.com/jhy/jsoup/issues/936>
 
   * Improved Node traversal, including less object creation, and partial and filtering traversor support.
