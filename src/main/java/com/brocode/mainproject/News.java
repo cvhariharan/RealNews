@@ -34,18 +34,6 @@ public class News
         this.ID = id;
     }
 
-    News(String timestamp,String title,String author,String content,String url)
-    {
-        this.timestamp = timestamp;
-        this.title = title;
-        this.authorName = author;
-        this.content = content;
-        this.url = url;
-        this.likes = 0;
-        this.fakes = 0;
-        this.ID = title.hashCode();
-    }
-
     public int getLikes()
     {
         return likes;
@@ -56,6 +44,11 @@ public class News
         this.likes++;
     }
 
+    public void decrementLikes()
+    {
+        this.likes--;
+    }
+    
     public int getFakes()
     {
         return fakes;
@@ -64,6 +57,11 @@ public class News
     public void incrementFakes()
     {
         this.fakes++;
+    }
+    
+    public String getTitle()
+    {
+        return title;
     }
     
     public String summarize(int lines)
