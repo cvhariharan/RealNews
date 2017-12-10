@@ -31,6 +31,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javax.xml.parsers.DocumentBuilder;
+import org.jsoup.HttpStatusException;
 import org.xml.sax.SAXParseException;
 
 
@@ -51,7 +52,7 @@ public class XmlParse
 
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-        Document document = documentBuilder.parse(url.openConnection().getInputStream());
+        Document document = documentBuilder.parse(url.openStream());
 
 
 
@@ -76,9 +77,13 @@ public class XmlParse
                 htmlUrl = element.getTextContent();
 
                 URL urlHtml = new URL(htmlUrl);
-
-                new SiteScraper().siteScrape(urlHtml);
-
+                try
+                {
+                    new SiteScraper().siteScrape(urlHtml);
+                } catch(HttpStatusException he)
+                {
+                    //null statement to avoid crashing the program in case of http errors like 404
+                }
             }
 
         }

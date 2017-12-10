@@ -37,7 +37,10 @@ public class AddArticles {
      final String tbname= "NewArticles";
      String Category;
      Connection connection;
-     public AddArticles(){
+     String username;
+     String password;
+     String url;
+     public AddArticles(String username,String password,String url){
           
          try{
          Connection conn = getConnection();
@@ -48,7 +51,7 @@ public class AddArticles {
              System.out.println(e.getMessage());
          }
      }
-     public AddArticles(String Category){
+     public AddArticles(String Category,String username,String password,String url){
          try{
          Connection conn = getConnection();
          this.connection=conn;
@@ -64,9 +67,7 @@ public class AddArticles {
         try 
          {
         	 String driver = "com.mysql.jdbc.Driver";
-        	 String url = "jdbc:mysql://localhost/database";
-        	 String username = "root";
-        	 String password = "Ayudrag11@";
+        	  
         	 Class.forName(driver);
         	 Connection mycon = DriverManager.getConnection(url, username, password);
         	 System.out.println("Connected");
@@ -131,7 +132,7 @@ public class AddArticles {
                         Connection con = connection;
                         String qu1 = "SELECT MAX(id) FROM "+tbname+"";
                         
-                        String qu = "INSERT INTO "+tbname+" (Content,Timestamp,URL,Title,Author,Category,Sentiment,NewsArticle,Likes,Fakes) VALUES('"+content+"','"+timestamp+"','"+url+"','"+title+"','"+authorName+"','"+Category+"','"+sentiment+"',?,'"+likes+"','"+fakes+"')";
+                        String qu = "INSERT INTO "+tbname+" (Content,Timestamp,URL,Title,Author,Category,Sentiment,NewsArticle,Likes,Fakes) VALUES(?,'"+timestamp+"','"+url+"','"+title+"','"+authorName+"','"+Category+"','"+sentiment+"',?,'"+likes+"','"+fakes+"')";
 			PreparedStatement post1 = con.prepareStatement(qu1);
                         PreparedStatement post =  con.prepareStatement(qu);
                         //post.setObject(1, newsa);
@@ -146,8 +147,8 @@ public class AddArticles {
                      
                      NewsArticle newsa = new NewsArticle(content,lastid+"");
                      byte[] data=ObjectString.objectBytes(newsa);
-                     
-                      post.setObject(1,data );
+                      post.setString(1,content);
+                      post.setObject(2,data);
                       post.executeUpdate();
 		}catch(Exception e) {
                     System.out.println(e.getMessage());

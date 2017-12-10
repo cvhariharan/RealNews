@@ -73,18 +73,18 @@ public class SQLiteJDBC {
       }
       System.out.println("Table created successfully");
    }
-    public void insertTable(){
+    public void insertTable(String name,String password){
        
         try { 
-        
+         //Connection con = database();
          Statement stmt = c.createStatement();
-         String name,password;
+         /*String name,password;
          System.out.println("Enter Name");
          Scanner input = new Scanner(System.in);
          name = input.nextLine();
         
           System.out.println("Enter Password");
-         password = input.nextLine();
+         password = input.nextLine();*/
          
          password = BCrypt.hashpw(password,BCrypt.gensalt());
          String sql = "INSERT INTO USERSnew (NAME,PASSWORD) " +
@@ -95,11 +95,13 @@ public class SQLiteJDBC {
          c.close();
       } catch ( Exception e ) 
       {
-         System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+          e.printStackTrace();
+         //System.err.println( e.getClass().getName() + ": " + e.getMessage() );
          System.exit(0);
       }
       System.out.println("Records created successfully");
-   }
+    }
+
     public ResultSet select(){
          ResultSet rs=null;
         try {
@@ -126,7 +128,7 @@ public class SQLiteJDBC {
       rs.close();
       stmt.close();
       c.close();
-      
+
    } catch ( Exception e ) {
       System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       System.exit(0);
@@ -138,33 +140,55 @@ public class SQLiteJDBC {
     public boolean login(String username, String password)
     {
         ResultSet rs=null;
-        try {
+        try
+        {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:users.db");
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
             Statement stmt;
             stmt = c.createStatement();
-            rs = stmt.executeQuery( "SELECT * FROM USERSnew WHERE NAME LIKE '" + username +"';" );
-            
-            while ( rs.next() ) {
-                String  dbPassword = rs.getString("PASSWORD");
-                if(BCrypt.checkpw(password,dbPassword))
+            rs = stmt.executeQuery( "SELECT * FROM USERSnew where NAME LIKE '" + username +"';" );
+
+            while(rs.next())
+            {
+                String dbPassword = rs.getString("PASSWORD");
+                String dbUsername = rs.getString("NAME");
+                if(username.equals(dbUsername) && BCrypt.checkpw(password,dbPassword))
                 {
                     System.out.println("login successful");
                     return true;
                 }
+                else if(username.equals(dbUsername))
+                {
+                    System.out.println("login failed");
+                    return false;
+                }
             }
+
+                insertTable(username, password);
+                System.out.println("user created and logged in");
+
+            //System.out.println("returning false");
             rs.close();
             stmt.close();
             c.close();
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+            return true;
         }
+        catch ( SQLException e )
+        {
+            e.printStackTrace();
+            //System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        } catch (ClassNotFoundException c)
+        {
+            c.printStackTrace();
+        }
+
         System.out.println("Operation done successfully");
+
         return false;
     }
-}
+  }
 
     

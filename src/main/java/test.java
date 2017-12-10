@@ -27,24 +27,35 @@ public class test {
     public static void main(String[] args) throws SAXException,SAXParseException, IOException, MalformedURLException, ParserConfigurationException, Exception{
         //SQLiteJDBC sq = new SQLiteJDBC();
         //sq.createTable();
-        //sq.insertTable();
-        //sq.login("soorya", "pass");
+        //sq.insertTable("ayush", "pass");
+       // sq.login("ayush", "qwertry");
         XmlParse xm = new XmlParse();
-        //xm.startadd("http://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms");
-        //AddArticles add = new AddArticles("World");
-        //add.createTable();
-        //add.post();
+        
+        xm.startadd("http://timesofindia.indiatimes.com/rssfeeds/1945062111.cms");
+        AddArticles add = new AddArticles("World","root","Ayudrag11@","jdbc:mysql://localhost/database");
+        add.createTable();
+        add.post();
+        
+        
+        xm.startadd("https://kotaku.com/rss");
+        AddArticles add3 = new AddArticles("World","root","Ayudrag11@","jdbc:mysql://localhost/database");
+        add3.createTable();
+        add3.post();
+        
+        
         xm.startadd(" http://www.espn.com/espn/rss/news");
-        AddArticles add1 = new AddArticles("Sports");
+        AddArticles add1 = new AddArticles("Sports","root","Ayudrag11@","jdbc:mysql://localhost/database");
         add1.createTable();
         add1.post();
-        AddArticles add2 = new AddArticles("SciTech");
+        
+        
         xm.startadd("http://www.anandtech.com/rss/");
+        AddArticles add2 = new AddArticles("SciTech","root","Ayudrag11@","jdbc:mysql://localhost/database");
         add2.createTable();
         add2.post();
         
         
-        
+        /*
         ArrayList<NewsArticle> arnews  = new ArrayList<NewsArticle>();
         
         arnews= add1.getnewsObject(add1);
@@ -64,7 +75,8 @@ public class test {
         }
         
         
-        }
-        
+        }*/
     }
+}
+    
 

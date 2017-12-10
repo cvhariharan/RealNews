@@ -72,7 +72,7 @@ public class News
     public void incrementLikes() throws SQLException
     {
         this.likes++;
-        AddArticles addr = new AddArticles();
+        AddArticles addr = new AddArticles("root","Ayudrag11@","jdbc:mysql://localhost/database");
         addr.update("UPDATE Articlesf SET likes = '"+likes+"' WHERE ID = '"+this.ID+"'");
     }
 
@@ -85,7 +85,7 @@ public class News
     public void incrementFakes() throws SQLException
     {
         this.fakes++;
-        AddArticles addr = new AddArticles();
+        AddArticles addr = new AddArticles("root","Ayudrag11@","jdbc:mysql://localhost/database");
         addr.update("UPDATE Articlesf SET fakes = '"+fakes+"' WHERE ID = '"+this.ID+"'");
         
     }
