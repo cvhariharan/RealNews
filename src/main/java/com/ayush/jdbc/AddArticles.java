@@ -41,7 +41,10 @@ public class AddArticles {
      String password;
      String url;
      public AddArticles(String username,String password,String url){
-          
+         
+         this.username = username;
+         this.password = password;
+         this.url = url;
          try{
          Connection conn = getConnection();
          this.connection=conn;
@@ -52,6 +55,9 @@ public class AddArticles {
          }
      }
      public AddArticles(String Category,String username,String password,String url){
+         this.username = username;
+         this.password = password;
+         this.url = url;
          try{
          Connection conn = getConnection();
          this.connection=conn;

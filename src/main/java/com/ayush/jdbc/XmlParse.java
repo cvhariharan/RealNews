@@ -9,52 +9,65 @@ package com.ayush.jdbc;
  *
  * @author asus
  */
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
 
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLConnection;
 
-
-
+//import org.apache.commons.io.IOUtils;
 import org.w3c.dom.NodeList;
-
 import org.w3c.dom.Element;
-
 import org.w3c.dom.Document;
-
 import org.xml.sax.SAXException;
-
-
-
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import javax.xml.parsers.ParserConfigurationException;
-
+import org.apache.commons.lang3.SystemUtils;
 import javax.xml.parsers.DocumentBuilder;
 import org.jsoup.HttpStatusException;
 import org.xml.sax.SAXParseException;
 
+import static org.apache.commons.lang3.StringEscapeUtils.escapeXml;
 
 
 public class XmlParse
-
 {
 
     //gets URLs from the RSS link
-
     //these URLs get passed to another function to get content from the returned links
 
     public void getURLfromXML(URL url) throws SAXException,SAXParseException, IOException, ParserConfigurationException
-
     {
-
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        File file = new File("toi.xml");
+        /*InputStream in = url.openStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        FileWriter writer = new FileWriter(file);
+        String lineReadWithEscapes;
+        while((lineReadWithEscapes = reader.readLine()) != null)
+        {
+            //lineReadWithEscapes = lineReadWithEscapes.replaceAll("\"","&quot;");
+            //lineReadWithEscapes = lineReadWithEscapes.replaceAll("&","&amp;");
+            //lineReadWithEscapes = lineReadWithEscapes.replaceAll("'","&apos;");
 
-        Document document = documentBuilder.parse(url.openStream());
+            //lineReadWithEscapes = escapeXml(lineReadWithEscapes);
+            //lineReadWithEscapes = lineReadWithEscapes.replaceAll("&lt;","<");
+            //lineReadWithEscapes = lineReadWithEscapes.replaceAll("&gt;",">");
+            System.out.println(lineReadWithEscapes);
+            writer.write(lineReadWithEscapes);
+            writer.write(System.lineSeparator());
+        }
 
+        /*String urlWithEscapes = IOUtils.toString(url.openStream());
+        urlWithEscapes = escapeXml(urlWithEscapes);
+        System.out.println(urlWithEscapes);*/
 
+        //InputStream inStream = new ByteArrayInputStream(urlWithEscapes.getBytes());
+        //return;
+
+        Document document = documentBuilder.parse(file);
 
         document.getDocumentElement().normalize();
 
