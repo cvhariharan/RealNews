@@ -29,6 +29,7 @@ public class Recommend implements Serializable {
         impWords=likedArticle.impWords;
                  
         HashMap<String,Integer> freq=new HashMap<>();
+         
         int flag=0;
         for(NewsArticle n:articles){
             for(String word:impWords){
@@ -50,10 +51,18 @@ public class Recommend implements Serializable {
         HashMap<NewsArticle,Double> rt_idf=new HashMap<>();
         
         for(NewsArticle na:articles){
-          
+            if(freq.get(na.articleId)==null){
+                freq.put(na.articleId,0);
+            }
             int f=freq.get(na.articleId);
-            double val=Math.log10(na.totalFreq/f);
-            rt_idf.put(na, val);
+            double val;
+            if(f==0){
+                val=0;
+            }else{
+              val=Math.log10(na.totalFreq/f);
+            }
+              rt_idf.put(na, val);
+            
         }
         
         ArrayList<String> recommendList=new ArrayList<>();

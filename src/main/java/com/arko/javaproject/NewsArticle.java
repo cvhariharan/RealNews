@@ -12,7 +12,7 @@ public class NewsArticle implements Serializable{
      String[] tokens;
      ArrayList<String> impWords; 
      int totalFreq;
-     String sentiment;
+     public String sentiment;
      
      public NewsArticle(String article,String articleId) throws IOException{
          
