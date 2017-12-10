@@ -50,15 +50,16 @@ public class LoginController implements Initializable {
     void goClicked(ActionEvent event) throws IOException 
     {
         username = userTxt.getText();
+        SQLiteJDBC loginChecker = new SQLiteJDBC();
 
-        new SQLiteJDBC().login(userTxt.getText(),passTxt.getText());
-
-        FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/MainPage.fxml"));
-        Parent root = (Parent)fxml.load();
-        Stage stage = new Stage();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        if(loginChecker.login(userTxt.getText(),passTxt.getText()))
+        {
+            FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/MainPage.fxml"));
+            Parent root = (Parent)fxml.load();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
-    
 }
