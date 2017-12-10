@@ -21,9 +21,7 @@ import javafx.stage.Stage;
 public class NewsPaneController implements Initializable{
         
     News news;
-    @FXML
-    private ImageView newsImg;
-
+    
     @FXML
     private Text headlineTxt;
 
@@ -34,29 +32,26 @@ public class NewsPaneController implements Initializable{
     private ToggleButtonGroup buttonGroup;
 
     @FXML
-    private ToggleButton saveBtn;
-
-    @FXML
     private ToggleButton likeBtn;
 
     @FXML
-    private ToggleButton unlikeBtn;
+    private Button summarizeBtn;
+    
+    @FXML
+    private Button reportBtn;
 
     @FXML
-    private Button summarizeBtn;
+    private Text newsTxt;
+
+    @FXML
+    void reportFake(MouseEvent event) {
+        
+        news.incrementFakes();
+    }
 
     void likeNews(MouseEvent event) {
         
         news.incrementLikes();
-    }
-
-    void reportFake(MouseEvent event) {
-
-        news.incrementFakes();
-    }
-
-    void saveNews(MouseEvent event) {
-
     }
 
     void summarizeText(MouseEvent event) throws IOException {
@@ -75,25 +70,22 @@ public class NewsPaneController implements Initializable{
         
     }
 
-    void unlikeNews(MouseEvent event) {
-
-        news.decrementLikes();
-    }
-    
-
     public void start(Stage primaryStage) throws Exception {
         
-        headlineTxt.setText(news.getTitle());
+        headlineTxt.setText(news.getTitle());       //sets headline text
         
-        trustBar.setProgress(news.getFakes());
-        if(trustBar.getProgress()>= 60)
+        trustBar.setProgress(100);      //sets trust bar progress
+        
+        if(news.detect())             //changes trust bar's colour if the news is reported fake
         {
-           trustBar.setStyle("-fx-accent: red"); 
+           trustBar.setStyle("-fx-accent: green"); 
         }
-        else if(trustBar.getProgress()>=40)
+        else
         {
-            trustBar.setStyle("-fx-accent: orange");
-        }        
+            trustBar.setStyle("-fx-accent: red");
+        }  
+        
+        newsTxt.setText(news.content);  //sets news article text in news pane
     }
 
     @Override

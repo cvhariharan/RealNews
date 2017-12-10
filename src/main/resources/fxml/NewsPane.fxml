@@ -5,67 +5,45 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.brocode.mainproject.NewsPaneController">
+<ScrollPane fitToHeight="true" fitToWidth="true" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.brocode.mainproject.NewsPaneController">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <TextArea layoutY="153.0" prefHeight="247.0" prefWidth="600.0" />
-            <ImageView fx:id="newsImg" fitHeight="400.0" fitWidth="600.0" layoutX="-2.0" layoutY="-8.0" pickOnBounds="true">
-               <image>
-                  <Image url="@../../../../../../data/IMG_3694.JPG" />
-               </image>
-            </ImageView>
-            <Text fx:id="headlineTxt" fill="WHITE" layoutX="4.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Climate Change: A Hoax" wrappingWidth="370.9830722808838">
+            <Text fx:id="headlineTxt" layoutX="12.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Climate Change: A Hoax" wrappingWidth="472.9830722808838" AnchorPane.bottomAnchor="287.8000030517578" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="115.01692771911621" AnchorPane.topAnchor="33.0">
                <font>
                   <Font name="BigJohn" size="36.0" />
                </font>
             </Text>
-            <ProgressBar fx:id="trustBar" cache="true" layoutX="-2.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="600.0" progress="1.0">
+            <ProgressBar fx:id="trustBar" cache="true" layoutX="-2.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="600.0" progress="1.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
                <effect>
                   <ColorAdjust hue="0.9" />
                </effect></ProgressBar>
-            <ToggleButtonGroup fx:id="buttonGroup" blendMode="OVERLAY" layoutX="4.0" layoutY="339.0" prefHeight="42.0" prefWidth="105.0" selectionType="MULTIPLE">
+            <ToggleButtonGroup fx:id="buttonGroup" layoutX="4.0" layoutY="339.0" prefHeight="41.0" prefWidth="108.0" selectionType="MULTIPLE" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0">
                 <toggles>
-                    <ToggleButton fx:id="saveBtn">
+                    <ToggleButton fx:id="likeBtn" minWidth="42.0" prefHeight="40.0" prefWidth="45.0" selected="true">
                         <graphic>
-                            <Icon content="SAVE" prefWidth="22.0" />
-                        </graphic>
-                    </ToggleButton>
-                    <ToggleButton fx:id="likeBtn" selected="true">
-                        <graphic>
-                            <Icon content="THUMB_UP" />
-                        </graphic>
-                    </ToggleButton>
-                    <ToggleButton fx:id="unlikeBtn">
-                        <graphic>
-                            <Icon content="THUMB_DOWN" />
+                            <Icon content="THUMB_UP" prefHeight="40.0" prefWidth="45.0" />
                         </graphic>
                     </ToggleButton>
                 </toggles>
             </ToggleButtonGroup>
-            <Button fx:id="summarizeBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="491.0" layoutY="344.0" minWidth="51.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="84.0" text="Summarize" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="CLIP">
+            <Button fx:id="summarizeBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="504.0" layoutY="356.0" minWidth="51.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="90.0" text="Summarize" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="CLIP" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="12.0">
                <font>
                   <Font name="GloberThinFree" size="12.0" />
                </font>
             </Button>
-            <Pane layoutX="-2.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Button layoutX="525.0" layoutY="23.0" minWidth="37.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="Report">
-                     <effect>
-                        <ColorAdjust hue="0.86" />
-                     </effect>
-                  </Button>
-               </children></Pane>
+            <Button fx:id="reportBtn" layoutX="496.0" layoutY="24.0" minWidth="37.0" mnemonicParsing="false" onMouseClicked="#reportFake" prefHeight="41.0" prefWidth="90.0" text="Report" textAlignment="CENTER" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="24.0">
+               <effect>
+                  <ColorAdjust hue="0.86" />
+               </effect>
+            </Button>
+            <Text fx:id="newsTxt" layoutX="12.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(News Article Text Here)" wrappingWidth="576.9830722808838" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="125.0" />
          </children></AnchorPane>
   </content>
 </ScrollPane>
