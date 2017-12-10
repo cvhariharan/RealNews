@@ -21,9 +21,12 @@ import com.ayush.jdbc.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 public class MainPageController implements Initializable{
     
-    
+    private HashMap<String, News>newsMap;
     @FXML
     private Button updatePasswordBtn;
 
@@ -46,30 +49,36 @@ public class MainPageController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
+        newsMap = new HashMap<>();
         try {
             generateCards();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-        List<String> values = Arrays.asList("one", "two", "three");
-        news.setItems(FXCollections.observableList(values));
+       
     }
     public void generateCards() throws Exception
     {
         String tableName = "Articles0";
-        Jdbc conn = new Jdbc();
-        ResultSet results = conn.get("SELECT * FROM "+tableName+" WHERE 1 = 1");
+        AddArticles articles = new AddArticles();
+        ResultSet results = articles.selectall("Artq");
         while(results.next())
         {
             int id = results.getInt("id");
             String title = results.getString("Title");
-            String content = results.getString("Content");
-            String timestamp = results.getString("Date");
             String author = results.getString("Author");
-            String url = results.getString("Link");
+            String content = results.getString("Content");
+            String url = results.getString("URL");
+            String timestamp = results.getString("Timestamp");
             News news = new News(timestamp,title,author,content,"",url,id);
-            
+            newsMap.put(title, news);
         }
+        List<String> values = new ArrayList<>();
+        for(Map.Entry e: newsMap.entrySet())
+        {
+            values.add((String)e.getKey());
+        }
+        news.setItems(FXCollections.observableList(values));
     }
     
 
