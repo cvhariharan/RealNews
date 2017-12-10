@@ -22,7 +22,7 @@ public class Recommend implements Serializable {
     
 //we will get the articles from database
     
-    public ArrayList<NewsArticle> recommend(NewsArticle likedArticle) throws IOException{      //send the NewsArticle object of the article liked by the user
+    public ArrayList<String> recommend(NewsArticle likedArticle) throws IOException{      //send the NewsArticle object of the article liked by the user
         //articles=......      read all the articles which match the sentiment and the topic of discussion 
         
         ArrayList<String> impWords;
@@ -56,13 +56,16 @@ public class Recommend implements Serializable {
             rt_idf.put(na, val);
         }
         
-        ArrayList<NewsArticle> recommendList=new ArrayList<>();
+        ArrayList<String> recommendList=new ArrayList<>();
         List<Map.Entry<NewsArticle, Double>> greatest = WordRating.findGreatest(rt_idf,5);
          
          for(Map.Entry<NewsArticle,Double> entry:greatest){
             for(Map.Entry<NewsArticle,Double> e:rt_idf.entrySet()){
                 if(Double.compare(entry.getValue(),e.getValue())==0){
-                    recommendList.add(e.getKey());
+                    NewsArticle n=(NewsArticle)e.getKey();
+                    if(!n.articleId.equalsIgnoreCase(likedArticle.articleId)){
+                    recommendList.add(n.articleId);
+                    }
                     break;
                     
                 }
