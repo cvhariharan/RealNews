@@ -4,6 +4,8 @@ import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.*;
@@ -17,11 +19,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import com.ayush.jdbc.*;
+import java.sql.SQLException;
 
 public class NewsPaneController implements Initializable{
         
     News news;
-    
+    AddArticles jdbc;
     @FXML
     private Text headlineTxt;
 
@@ -45,7 +49,11 @@ public class NewsPaneController implements Initializable{
 
     @FXML
     void reportFake(MouseEvent event) {
-        
+        try {
+            jdbc.update("UPDATE artq SET fakes=fakes+1 WHERE id="+news.ID);
+        } catch (SQLException ex) {
+            Logger.getLogger(NewsPaneController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         news.incrementFakes();
     }
 
@@ -58,20 +66,20 @@ public class NewsPaneController implements Initializable{
 
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/Summary.fxml"));
         Parent root = (Parent)fxml.load();
-        SummaryController summaryController = new SummaryController();
-        summaryController.setSummaryText(news.summarize(6));
+       /* SummaryController summaryController = new SummaryController();
+        summaryController.setSummaryText(news.summarize(6));*/
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
         
-        //NewsPaneController summaryController = (NewsPaneController)fxml.getController();
-        //summaryController.setSummaryText(news.summarize(6));   //pass summarized text string
+        SummaryController summaryController = (SummaryController)fxml.getController();
+        summaryController.setSummaryText(news.summarize(6));   //pass summarized text string
         
     }
-
-    public void start(Stage primaryStage) throws Exception {
-        
+    public void start() throws Exception {
+        news = MainPageController.newsArticle;
+        System.out.println(news.getTitle());
         headlineTxt.setText(news.getTitle());       //sets headline text
         
         trustBar.setProgress(100);      //sets trust bar progress
@@ -90,6 +98,11 @@ public class NewsPaneController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        news = MainPageController.newsArticle;
+        jdbc = new AddArticles();
+        try {
+            start();
+        } catch (Exception ex) {
+            Logger.getLogger(NewsPaneController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

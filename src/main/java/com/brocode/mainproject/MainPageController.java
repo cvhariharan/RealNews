@@ -30,6 +30,7 @@ import javafx.scene.input.MouseEvent;
 public class MainPageController implements Initializable{
     
     public static News newsArticle;
+    List<String> values = new ArrayList<>();
     private HashMap<String, News>newsMap;
     @FXML
     private Button updatePasswordBtn;
@@ -77,7 +78,7 @@ public class MainPageController implements Initializable{
             News article = new News(timestamp,title,author,content,"",url,id);
             newsMap.put(title, article);
         }
-        List<String> values = new ArrayList<>();
+        
         for(Map.Entry e: newsMap.entrySet())
         {
             values.add((String)e.getKey());
@@ -93,13 +94,13 @@ public class MainPageController implements Initializable{
         @Override
         public void handle(MouseEvent event) {
             System.out.println("clicked on " + news.getSelectionModel().getSelectedItem());
-            
+            String title = values.get(news.getSelectionModel().getSelectedIndex());
+            News article = newsMap.get(title);
+            newsArticle = article;
             try
             {
             FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/NewsPane.fxml"));
             Parent root = (Parent)fxml.load();
-            News article = newsMap.get(news.getSelectionModel().getSelectedItem());
-            newsArticle = article;
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
