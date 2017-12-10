@@ -51,7 +51,7 @@ public class Recommend implements Serializable {
         
         for(NewsArticle na:articles){
           
-            int f=freq.get(na.articleId.trim());
+            int f=freq.get(na.articleId);
             double val=Math.log10(na.totalFreq/f);
             rt_idf.put(na, val);
         }
