@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import com.arko.javaproject.*;
 public class MainPageController implements Initializable{
     
     public static News newsArticle;
@@ -64,9 +65,33 @@ public class MainPageController implements Initializable{
     }
     public void generateCards() throws Exception
     {
-        //String tableName = "Articles0";
-        AddArticles articles = new AddArticles();
-        ResultSet results = articles.selectall("Artq");
+        String username = "test";
+        String tableName = "newsarticles";
+        AddArticles a=new AddArticles("root","","jdbc:mysql://localhost/database");
+        Recommend r=new Recommend(a.getnewsObject(a)); 
+        SQLiteJDBC sq = new SQLiteJDBC();
+        int idArticle=sq.getlikedArticle(username);//the username of the user whoose data is to be found 
+        ResultSet rs=a.select(tableName,"id = '"+idArticle+"'");
+       
+        byte[] data=rs.getBytes("NewsArticle");
+      
+        com.arko.javaproject.NewsArticle newsObj=ObjectString.getObject(data);
+        ArrayList<String> newsId=r.recommend(newsObj);
+        
+       for(String i:newsId){
+           ResultSet result=a.select(tableName,"id = '"+i+"'");
+           
+            int id = result.getInt("id");
+            String title = result.getString("Title");
+            String author = result.getString("Author");
+            String content = result.getString("Content");
+            String url = result.getString("URL");
+            String timestamp = result.getString("Timestamp");
+            News article = new News(timestamp,title,author,content,"",url,id);
+            newsMap.put(title, article);
+            values.add(title);
+       }
+        ResultSet results = a.selectall(tableName);
         while(results.next())
         {
             int id = results.getInt("id");

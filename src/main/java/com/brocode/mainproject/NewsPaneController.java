@@ -50,7 +50,7 @@ public class NewsPaneController implements Initializable{
     @FXML
     void reportFake(MouseEvent event) {
         try {
-            jdbc.update("UPDATE artq SET fakes=fakes+1 WHERE id="+news.ID);
+            jdbc.update("UPDATE newsarticles SET fakes=fakes+1 WHERE id="+news.ID);
         } catch (SQLException ex) {
             Logger.getLogger(NewsPaneController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -58,7 +58,11 @@ public class NewsPaneController implements Initializable{
     }
 
     void likeNews(MouseEvent event) {
-        
+        try {
+            jdbc.update("UPDATE newsarticles SET likes=likes+1 WHERE id="+news.ID);
+        } catch (SQLException ex) {
+            Logger.getLogger(NewsPaneController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         news.incrementLikes();
     }
 
@@ -66,15 +70,15 @@ public class NewsPaneController implements Initializable{
 
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/Summary.fxml"));
         Parent root = (Parent)fxml.load();
-       /* SummaryController summaryController = new SummaryController();
-        summaryController.setSummaryText(news.summarize(6));*/
+        SummaryController summaryController = new SummaryController();
+        summaryController.setSummaryText(news.summarize(6));
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
         
-        SummaryController summaryController = (SummaryController)fxml.getController();
-        summaryController.setSummaryText(news.summarize(6));   //pass summarized text string
+        /*SummaryController summaryController = (SummaryController)fxml.getController();
+        summaryController.setSummaryText(news.summarize(6));  */ //pass summarized text string
         
     }
     public void start() throws Exception {
@@ -98,7 +102,7 @@ public class NewsPaneController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        jdbc = new AddArticles();
+        jdbc = new AddArticles("root","","jdbc:mysql://localhost/database");
         try {
             start();
         } catch (Exception ex) {
