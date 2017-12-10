@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 
 public class NewsPaneController implements Initializable{
         
+    News news;
     @FXML
     private ImageView newsImg;
 
@@ -41,42 +43,38 @@ public class NewsPaneController implements Initializable{
     private ToggleButton unlikeBtn;
 
     @FXML
-    private Pane summarizeBtn;
+    private Button summarizeBtn;
 
-    @FXML
     void likeNews(MouseEvent event) {
         
         news.incrementLikes();
     }
 
-    @FXML
     void reportFake(MouseEvent event) {
 
         news.incrementFakes();
     }
 
-    @FXML
     void saveNews(MouseEvent event) {
 
     }
 
-    @FXML
     void summarizeText(MouseEvent event) throws IOException {
 
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/Summary.fxml"));
         Parent root = (Parent)fxml.load();
-        
+        SummaryController summaryController = new SummaryController();
+        summaryController.setSummaryText(news.summarize(6));
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
         
-        NewsPaneController summaryController = (NewsPaneController)fxml.getController();
-        summaryController.setSummaryText(news.summarize());   //pass summarized text string
+        //NewsPaneController summaryController = (NewsPaneController)fxml.getController();
+        //summaryController.setSummaryText(news.summarize(6));   //pass summarized text string
         
     }
 
-    @FXML
     void unlikeNews(MouseEvent event) {
 
         news.decrementLikes();
@@ -100,6 +98,6 @@ public class NewsPaneController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        news = MainPageController.newsArticle;
     }
 }
