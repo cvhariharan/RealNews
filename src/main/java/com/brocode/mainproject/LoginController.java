@@ -8,6 +8,8 @@ package com.brocode.mainproject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.ayush.jdbc.SQLiteJDBC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,7 +31,8 @@ public class LoginController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
+    private static String username;
+
     @FXML
     private TextField userTxt;
 
@@ -46,6 +49,10 @@ public class LoginController implements Initializable {
     @FXML
     void goClicked(ActionEvent event) throws IOException 
     {
+        username = userTxt.getText();
+
+        new SQLiteJDBC().login(userTxt.getText(),passTxt.getText());
+
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/MainPage.fxml"));
         Parent root = (Parent)fxml.load();
         Stage stage = new Stage();
