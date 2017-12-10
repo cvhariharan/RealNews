@@ -52,15 +52,16 @@ public class Recommend implements Serializable {
         
         for(NewsArticle na:articles){
             if(freq.get(na.articleId)==null){
-                freq.put(na.articleId,0);
+              //  freq.put(na.articleId,0);
+                continue;   //for articles not having anything in common
             }
             int f=freq.get(na.articleId);
-            double val;
-            if(f==0){
-                val=0;
-            }else{
-              val=Math.log10(na.totalFreq/f);
-            }
+            double val=Math.log10(na.totalFreq/f);;
+           // if(f==0){
+              //  val=0;
+           // }else{
+              
+           // }
               rt_idf.put(na, val);
             
         }
