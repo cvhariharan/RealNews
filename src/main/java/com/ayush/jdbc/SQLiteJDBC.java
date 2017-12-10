@@ -76,8 +76,8 @@ public class SQLiteJDBC {
     public void insertTable(){
        
         try { 
-         Connection con = database();
-         Statement stmt = con.createStatement();
+        
+         Statement stmt = c.createStatement();
          String name,password;
          System.out.println("Enter Name");
          Scanner input = new Scanner(System.in);
@@ -92,7 +92,7 @@ public class SQLiteJDBC {
          stmt.executeUpdate(sql);
          stmt.close();
          //con.commit();
-         con.close();
+         c.close();
       } catch ( Exception e ) 
       {
          System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -145,7 +145,7 @@ public class SQLiteJDBC {
             System.out.println("Opened database successfully");
             Statement stmt;
             stmt = c.createStatement();
-            rs = stmt.executeQuery( "SELECT * FROM USERSnew where NAME LIKE '" + username +"';" );
+            rs = stmt.executeQuery( "SELECT * FROM USERSnew WHERE NAME LIKE '" + username +"';" );
             
             while ( rs.next() ) {
                 String  dbPassword = rs.getString("PASSWORD");

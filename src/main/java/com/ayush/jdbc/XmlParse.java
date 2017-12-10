@@ -31,6 +31,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javax.xml.parsers.DocumentBuilder;
+import org.xml.sax.SAXParseException;
 
 
 
@@ -42,7 +43,7 @@ public class XmlParse
 
     //these URLs get passed to another function to get content from the returned links
 
-    public void getURLfromXML(URL url) throws SAXException, IOException, ParserConfigurationException
+    public void getURLfromXML(URL url) throws SAXException,SAXParseException, IOException, ParserConfigurationException
 
     {
 
@@ -50,7 +51,7 @@ public class XmlParse
 
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-        Document document = documentBuilder.parse(url.openStream());
+        Document document = documentBuilder.parse(url.openConnection().getInputStream());
 
 
 
@@ -87,12 +88,12 @@ public class XmlParse
 
 
     //public static void main(String args[]) throws IOException, ParserConfigurationException, SAXException
-    public void startadd() throws MalformedURLException, SAXException, IOException, ParserConfigurationException
+    public void startadd(String URL) throws MalformedURLException, SAXException,SAXParseException, IOException, ParserConfigurationException
     {
 
-        URL url = new URL("https://kotaku.com/rss");
+        URL url = new URL(URL);
 
-        new XmlParse().getURLfromXML(url);
+        getURLfromXML(url);
 
 
 
