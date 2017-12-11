@@ -28,9 +28,12 @@ import java.util.Map;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import com.arko.javaproject.*;
+import javafx.event.ActionEvent;
+import javafx.scene.control.ToggleGroup;
 public class MainPageController implements Initializable{
     
     public static News newsArticle;
+    ToggleGroup radioGroup = new ToggleGroup();
     List<String> values = new ArrayList<>();
     private HashMap<String, News>newsMap;
     @FXML
@@ -55,6 +58,11 @@ public class MainPageController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
+        
+        worldCategoryBtn.setToggleGroup(radioGroup);
+        sciCategoryBtn.setToggleGroup(radioGroup);
+        sportsCategoryBtn.setToggleGroup(radioGroup);
+        worldCategoryBtn.setSelected(true);
         newsMap = new HashMap<>();
         try {
             generateCards();
@@ -65,10 +73,20 @@ public class MainPageController implements Initializable{
     }
     public void generateCards() throws Exception
     {
-        String username = "test";
+        RadioButton selectedRadioButton = (RadioButton) radioGroup.getSelectedToggle();
+        String toggleGroupValue = selectedRadioButton.getText();
+        System.out.println(toggleGroupValue);
+        String category = "";
+        if(toggleGroupValue.equalsIgnoreCase("World"))
+        category = "World";
+        if(toggleGroupValue.equalsIgnoreCase("Science & Tech"))
+        category = "SciTech";
+        if(toggleGroupValue.equalsIgnoreCase("Sports"))
+        category = "Sports";
+        //String username = "test";
         String tableName = "newsarticles";
-        AddArticles a=new AddArticles("root","","jdbc:mysql://localhost/database");
-        Recommend r=new Recommend(a.getnewsObject(a)); 
+        AddArticles a = new AddArticles("root","","jdbc:mysql://localhost/database");
+        /*Recommend r=new Recommend(a.getnewsObject(a)); 
         SQLiteJDBC sq = new SQLiteJDBC();
         int idArticle=sq.getlikedArticle(username);//the username of the user whoose data is to be found 
         ResultSet rs=a.select(tableName,"id = '"+idArticle+"'");
@@ -90,7 +108,7 @@ public class MainPageController implements Initializable{
             News article = new News(timestamp,title,author,content,"",url,id);
             newsMap.put(title, article);
             values.add(title);
-       }
+       }*/
         ResultSet results = a.selectall(tableName);
         while(results.next())
         {
@@ -137,5 +155,11 @@ public class MainPageController implements Initializable{
             }
         }
     });
+    }
+      @FXML
+    void refresh(ActionEvent event) throws Exception {
+        values.clear();
+        newsMap.clear();
+        generateCards();
     }
 }

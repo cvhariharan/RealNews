@@ -21,9 +21,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import com.ayush.jdbc.*;
 import java.sql.SQLException;
+import javafx.event.ActionEvent;
 
 public class NewsPaneController implements Initializable{
-        
+    public static String newsContent = "";
     News news;
     AddArticles jdbc;
     @FXML
@@ -65,13 +66,13 @@ public class NewsPaneController implements Initializable{
         }
         news.incrementLikes();
     }
-
-    void summarizeText(MouseEvent event) throws IOException {
-
+     @FXML
+    void summarizeText(ActionEvent event) throws IOException {
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("/fxml/Summary.fxml"));
         Parent root = (Parent)fxml.load();
-        SummaryController summaryController = new SummaryController();
+        SummaryController summaryController = (SummaryController)fxml.getController();
         summaryController.setSummaryText(news.summarize(6));
+        System.out.println(news.summarize(6));
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -79,8 +80,9 @@ public class NewsPaneController implements Initializable{
         
         /*SummaryController summaryController = (SummaryController)fxml.getController();
         summaryController.setSummaryText(news.summarize(6));  */ //pass summarized text string
-        
+
     }
+
     public void start() throws Exception {
         news = MainPageController.newsArticle;
         System.out.println(news.getTitle());
@@ -90,11 +92,11 @@ public class NewsPaneController implements Initializable{
         
         if(news.detect())             //changes trust bar's colour if the news is reported fake
         {
-           trustBar.setStyle("-fx-accent: green"); 
+           trustBar.setStyle("-fx-accent: #42f44e;"); 
         }
         else
         {
-            trustBar.setStyle("-fx-accent: red");
+            trustBar.setStyle("-fx-accent: #e51a0b;");
         }  
         
         newsTxt.setText(news.content);  //sets news article text in news pane

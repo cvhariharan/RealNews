@@ -9,12 +9,16 @@ package com.brocode.mainproject;
  *
  * @author JAIVRAT SAROHA
  */
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-public class SummaryController {
-
+public class SummaryController{
+    
+    
     @FXML
     private Label labelSummary;
 
@@ -27,5 +31,12 @@ public class SummaryController {
         summaryText.setText(text);
     } 
 
+    /*@Override
+    public void initialize(URL location, ResourceBundle resources) 
+    {
+        news = content;
+        setSummaryText(news);
+    }
+*/
 }
 

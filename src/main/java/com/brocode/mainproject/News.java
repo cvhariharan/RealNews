@@ -78,8 +78,9 @@ public class News
     public boolean detect() throws Exception
     {
         //True - Real, False - fake
-        Detector d = new Detector(this.content);
+        Detector d = new Detector(TextSum.normalize(this.content));
         boolean real = d.detect().equalsIgnoreCase("Real")?true:false;
+        System.out.println(real);
         return real;
     }
 }

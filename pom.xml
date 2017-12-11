@@ -19,6 +19,13 @@
         <name>Your Organisation</name>
     </organization>
 	<dependencies>
+            <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>5.1.44</version>
+</dependency>
+
 	 <dependency>
             <groupId>com</groupId>
             <artifactId>charm-glisten-4.4.1</artifactId>
@@ -51,11 +58,6 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.11.2</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.38</version>
         </dependency>
         <dependency>
             <groupId>org.xerial</groupId>

@@ -23,7 +23,7 @@
                   <RadioButton fx:id="sportsCategoryBtn" layoutX="48.0" layoutY="227.0" mnemonicParsing="false" text="Sports" />
                   <Label layoutX="47.0" layoutY="15.0" text="Settings" />
                   <Label layoutX="47.0" layoutY="115.0" text="Categories:" />
-                  <Button fx:id="logoutBtn" layoutX="52.0" layoutY="277.0" mnemonicParsing="false" text="Log Out" />
+                  <Button fx:id="logoutBtn" layoutX="52.0" layoutY="277.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="407.0" prefWidth="362.0">
