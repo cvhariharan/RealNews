@@ -23,12 +23,12 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import org.apache.commons.lang3.SystemUtils;
+//import org.apache.commons.lang3.SystemUtils;
 import javax.xml.parsers.DocumentBuilder;
 import org.jsoup.HttpStatusException;
 import org.xml.sax.SAXParseException;
 
-import static org.apache.commons.lang3.StringEscapeUtils.escapeXml;
+//import static org.apache.commons.lang3.StringEscapeUtils.escapeXml;
 
 
 public class XmlParse
@@ -67,7 +67,7 @@ public class XmlParse
         //InputStream inStream = new ByteArrayInputStream(urlWithEscapes.getBytes());
         //return;
 
-        Document document = documentBuilder.parse(file);
+        Document document = documentBuilder.parse(url.openStream());
 
         document.getDocumentElement().normalize();
 

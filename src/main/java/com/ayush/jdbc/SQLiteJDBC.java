@@ -89,6 +89,7 @@ public class SQLiteJDBC {
          password = BCrypt.hashpw(password,BCrypt.gensalt());
          String sql = "INSERT INTO USERSnew (NAME,PASSWORD) " +
                         "VALUES ('" + name + "','" + password +"');";
+         System.out.println(sql);
          stmt.executeUpdate(sql);
          stmt.close();
          //con.commit();
@@ -165,14 +166,15 @@ public class SQLiteJDBC {
                     return false;
                 }
             }
-
+                
                 insertTable(username, password);
                 System.out.println("user created and logged in");
 
             //System.out.println("returning false");
             rs.close();
             stmt.close();
-            c.close();
+                c.close();
+            
             return true;
         }
         catch ( SQLException e )

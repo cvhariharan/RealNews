@@ -25,16 +25,16 @@ import org.xml.sax.SAXParseException;
  */
 public class test {
     public static void main(String[] args) throws SAXException,SAXParseException, IOException, MalformedURLException, ParserConfigurationException, Exception{
-        //SQLiteJDBC sq = new SQLiteJDBC();
+        SQLiteJDBC sq = new SQLiteJDBC();
         //sq.createTable();
         //sq.insertTable("ayush", "pass");
-       // sq.login("ayush", "qwertry");
+        //sq.login("ayush", "pass23");
         XmlParse xm = new XmlParse();
         
-        xm.startadd("http://timesofindia.indiatimes.com/rssfeeds/1945062111.cms");
-        AddArticles add = new AddArticles("World","root","","jdbc:mysql://localhost/database");
-        add.createTable();
-        add.post();
+        //xm.startadd("http://timesofindia.indiatimes.com/rssfeeds/1945062111.cms");
+        //AddArticles add = new AddArticles("World","root","","jdbc:mysql://localhost/database");
+        //add.createTable();
+        //add.post();
         
         
         xm.startadd("https://kotaku.com/rss");
